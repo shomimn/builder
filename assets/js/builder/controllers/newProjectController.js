@@ -50,6 +50,11 @@ angular.module('builder')
 		})
 	};
 
+	$scope.back = function()
+	{
+		$state.go("home");
+	};
+
 }])
 
 .directive('blNewProjectColorSelector', function() {

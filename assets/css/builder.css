@@ -3877,7 +3877,8 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 @media (min-width:768px) {
 	.container-fluid>.navbar-collapse,.container-fluid>.navbar-header,.container>.navbar-collapse,.container>.navbar-header {
 		margin-right:0;
-		margin-left:0
+		margin-left:0;
+		display:table;
 	}
 }
 .navbar-static-top {
@@ -10199,9 +10200,18 @@ li.ui-state-focus {
 	margin-top:15%
 }
 #new-project-container figure {
-	padding:0 8px;
-	margin-bottom:16px
+	padding:0 0px;
+	margin-left:8px;
+	margin-bottom:16px;
+	box-shadow:0 1px 1px rgba(0,0,0,.04);
+	transition: box-shadow .2s ease-in-out;
+	border-radius:3px
 }
+
+#new-project-container figure:hover {
+	box-shadow:0 3px 10px 2px rgba(204,204,204,.85)
+}
+
 #new-project-container figure>.img-responsive {
 	-webkit-box-shadow:0 1px 2px rgba(0,0,0,.1);
 	box-shadow:0 1px 2px rgba(0,0,0,.1)
@@ -10213,11 +10223,17 @@ li.ui-state-focus {
 	-webkit-box-shadow:0 1px 2px rgba(0,0,0,.1);
 	box-shadow:0 1px 2px rgba(0,0,0,.1);
 	border-top:1px solid #eee;
+	border-bottom:1px solid #eee;
 	text-align:center;
 	padding:10px 5px;
 	background-color:#fff;
 	color:#777
 }
+
+.col-30 {
+	width:30%;
+}
+
 #pages ul {
 	text-align:center;
 	margin-top:25px
