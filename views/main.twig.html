@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html id="architect">
+<head>
+	<title>Architect</title>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">[ng-cloak]#splash{display:block!important}[ng-cloak]{display:none}#splash{display:none;position:absolute;top:45%;left:50%;width:6em;height:6em;overflow:hidden;border-radius:100%;z-index:0}@-webkit-keyframes fade{from{opacity:1}to{opacity:.2}}@keyframes fade{from{opacity:1}to{opacity:.2}}@-webkit-keyframes rotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}#splash::after,#splash::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%}#splash::before{background:linear-gradient(to right,green,#ff0);-webkit-animation:rotate 2.5s linear infinite;animation:rotate 2.5s linear infinite}#splash::after{background:linear-gradient(to bottom,red,#00f);-webkit-animation:fade 2s infinite alternate,rotate 2.5s linear reverse infinite;animation:fade 2s infinite alternate,rotate 2.5s linear reverse infinite}#splash-spinner{position:absolute;width:100%;height:100%;z-index:1;border-radius:100%;box-sizing:border-box;border-left:.5em solid transparent;border-right:.5em solid transparent;border-bottom:.5em solid rgba(255,255,255,.3);border-top:.5em solid rgba(255,255,255,.3);-webkit-animation:rotate .8s linear infinite;animation:rotate .8s linear infinite}</style>
+	<link rel="stylesheet" href="{{ app.base_url ~ '/assets/css/builder.css?v12' }}">
+	<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ app.base_url ~ '/assets/css/font-awesome.min.css' }}">
+	<script async type="text/javascript" src="http://feather.aviary.com/js/builder/feather.js"></script>
+</head>
+{% verbatim %}
+<body ng-app="builder">
+<!--translate-cloak ng-cloak-->
+
+    <div id="splash" ng-cloak>
+        <div id="splash-spinner"></div>
+    </div>
+
+	<div ng-cloak style="height: 100%">
+
+        <div id="view" ui-view></div>
+
+        <div class="modal fade" id="publish-modal" bl-export-to-ftp>
+            <div class="modal-dialog">
+                <div class="modal-content" ng-class="{demo: isDemo || !userCan('publish')}">
+                    <div class="modal-header">
+                        <button type="button" class="close pull-right" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{ 'close' | translate }}</span></button>
+                        <h4 class="modal-title">{{ 'publishToRemoteFtp' | translate }}</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div ng-if="isDemo" class="alert alert-info demo-alert">Publishing to remote ftp is disabled on demo site. Normally you would be able to enter your credentials and export the entire project with a single 'publish' click below.</div>
+                        <div ng-if="!userCan('publish') && ! isDemo" class="alert alert-info demo-alert">{{ 'noPermToPublish' | translate }}</div>
+
+                        <div class="form-group">
+                            <label for="host">{{ 'host' | translate }}</label>
+                            <input type="text" class="form-control" ng-model="publishCredentials.host">
+                        </div>
+                        <div class="form-group">
+                            <label for="username">{{ 'username' | translate }}</label>
+                            <input type="text" class="form-control" ng-model="publishCredentials.user">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">{{ 'password' | translate }}</label>
+                            <input type="password" class="form-control" ng-model="publishCredentials.password">
+                        </div>
+                        <div class="form-group">
+                            <label for="folder">{{ 'folder' | translate }}</label>
+                            <input type="text" class="form-control" ng-model="publishCredentials.root">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4 pull-left">
+                                <label for="port">{{ 'port' | translate }}</label>
+                                <input type="text" class="form-control" ng-model="publishCredentials.port">
+                            </div>
+                            <div class="form-group col-sm-2 pull-right">
+                                <div class="checkbox">
+                                    <label>
+                                        <input ng-model="publishCredentials.ssl" type="checkbox"> {{ 'ssl' | translate }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-danger error"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger close-modal">{{ 'close' | translate }}</button>
+                        <button class="btn btn-success publish" ng-disabled="isDemo">{{ 'publish' | translate }}</button>
+                    </div>
+                    <div class="loader"><div class="inner"><i class="fa fa-spinner fa-spin"></i><div class="text">{{ 'publishing' | translate }}</div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <footer ng-show="state.current.name !== 'builder'"><div class="copyright">&copy; Architect</div></footer> -->
+
+        {% endverbatim %}
+
+        <script>
+            var baseUrl = '{{ app.base_url }}',
+                    isDemo  = '{{ app.is_demo }}',
+                    keys    = '{{ app.keys| raw }}',
+                    version = '{{ app.version }}',
+                    locales = '{{ app.jsLocales| raw }}',
+                    trans   = {{ app.translations| raw }},
+            selectedLocale = '{{ app.selectedLocale|raw }}',
+                    settings =  {{ app.settingsJSON | raw }};
+        </script>
+
+        <script src="{{ app.base_url ~ '/assets/js/builder.min.js?v12' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/resources/icons.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/resources/colors.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/styling/fonts.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/dragAndDrop/draggable.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/dragAndDrop/iframeScroller.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/dragAndDrop/resizable.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/dragAndDrop/grid.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/editors/wysiwyg.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/elements/definitions/bootstrap.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/elements/definitions/base.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/elements/panel.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/elements/repository.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/inspector.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/attributes.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/border.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/marginPadding.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/text.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/shadows.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/actions.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/background/background.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/background/MediaManagerController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/settings.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/app.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/controllers/navbarController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/controllers/linkerController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/controllers/dashboardController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/controllers/newProjectController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/context/contextBoxes.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/undoManager.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/dom.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/context/contextMenu.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/dragAndDrop/IframeDragAndDropWidget.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/dragAndDrop/columnsResizeWidget.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/editors/codeEditor.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/editors/libraries.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/styling/themes.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/styling/templates.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/styling/themesCreator.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/styling/css.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/utils/localStorage.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/editors/imageEditor.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/projects/project.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/projects/pagesController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/projects/export.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/projects/exportToFtp.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/keybinds.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/users/usersController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/installer.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/preview.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/controllers/builderController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/controllers/registerController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/colorPicker.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/exportTheme.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/icheck.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/leftPanelNavigation.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/panelAccordion.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/prettySelect.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/renderThemesPanel.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/selectedTab.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/themeCreator.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/themesFilter.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/directives/tooltip.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/builder/inspector/background/MediaManagerController.js' }}"></script>
+        <script src="{{ app.base_url ~ '/assets/js/vendor/ace/ace.js' }}"></script>
+
+    </div>
+
+</body>
+</html>
