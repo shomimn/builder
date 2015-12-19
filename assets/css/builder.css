@@ -10081,8 +10081,8 @@ li.ui-state-focus {
 	padding-top:26px
 }
 #filter-bar .pull-right>.btn {
-	border:none;
-	border-bottom:3px solid #127db0
+	/*border:none;*/
+	/*border-bottom:3px solid #127db0*/
 }
 #filter-bar .form-group {
 	display:block;

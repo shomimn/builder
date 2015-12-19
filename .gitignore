@@ -1,7 +1,7 @@
 #/node_modules
 #/backend/vendor
 /.idea
-/storage/
+/storage
 #.phpstorm.meta.php
 #_ide_helper.php
 
@@ -15,6 +15,7 @@
 
 ## Directory-based project format:
 .idea/
+storage/
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
