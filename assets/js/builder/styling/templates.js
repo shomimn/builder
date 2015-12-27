@@ -102,7 +102,7 @@ angular.module('builder.styling')
 
 		],
 
-		categories: ['Landing Page', 'Blog', 'Portfolio'],
+		categories: ['Landing Page', 'Blog', 'Portfolio', 'Shop'],
 
 		loading: false,
 

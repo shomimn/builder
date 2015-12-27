@@ -95,8 +95,8 @@ angular.module('builder.inspector')
 		    	width: 60,
 		    	height: 60,
 		    	angleOffset: 90,
-		    	fgColor: '#00b588',
-		    	bgColor: '#263845',
+		    	fgColor: '#E0E0E0',
+		    	bgColor: '#414141',
 		    	change: function(v) {
 		    		$scope.inspector.sliding = true;
 		    		$scope.$apply(function() {

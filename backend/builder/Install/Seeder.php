@@ -77,6 +77,9 @@ class Seeder {
             array('name' => 'Scroll To', 'path' => 'assets/js/vendor/scroll-to.js'),
             array('name' => 'Animated Header', 'path' => 'assets/js/vendor/animated-header.js'),
             array('name' => 'Chart', 'path' => 'assets/js/vendor/chart.js'),
+            array('name' => 'Angular', 'path' => 'assets/js/vendor/angular.min.js'),
+            array('name' => 'Angular Routing', 'path' => 'assets/js/vendor/angular-ui-router.min.js'),
+            array('name' => 'Holder', 'path' => 'assets/js/vendor/holder.js'),
         );
 
         foreach($libraries as $library) {

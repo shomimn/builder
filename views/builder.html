@@ -30,15 +30,15 @@
             </section>
             <section class="row flyout-panel-toolbar" id="theme-creator-toolbar">
                 <div class="inner">
-                    <button type="button" ng-click="applyChanges()" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Apply changes to preview">{{ 'apply' | translate }}</button>
-                    <button type="button" ng-click="toggleCustomLessPanel()" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Add or edit custom less">{{ 'customLess' | translate }}</button>
+                    <button type="button" ng-click="applyChanges()" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Apply changes to preview">{{ 'apply' | translate }}</button>
+                    <button type="button" ng-click="toggleCustomLessPanel()" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Add or edit custom less">{{ 'customLess' | translate }}</button>
 
                     <input type="text" ng-model="editing.name" placeholder="Name...">
                     <select ng-model="editing.type">
                         <option value="private">{{ 'private' | translate }}</option>
                         <option value="public">{{ 'public' | translate }}</option>
                     </select>
-                    <button class="btn btn-success" ng-disabled="editing.saving" ng-click="saveCurrent()">{{ 'save' | translate }}</button>
+                    <button class="btn btn-primary" ng-disabled="editing.saving" ng-click="saveCurrent()">{{ 'save' | translate }}</button>
 
                     <div class="loader" ng-if="editing.saving"><i class="icon icon-spin6 icon-spin"></i></div>
                     <div class="error-message" ng-if="editing.errorMessage"><span class="text-danger">{{ editing.errorMessage }}</span></div>
@@ -80,7 +80,7 @@
                     </select>
 
                     <button ng-disabled="!activePage" bl-export-page class="btn btn-primary"><i class="icon icon-download"></i> Export Page</button>
-                    <button bl-export-project class="btn btn-success"><i class="icon icon-download"></i> {{ 'exportProject' | translate }}</button>
+                    <button bl-export-project class="btn btn-primary"><i class="icon icon-download"></i> {{ 'exportProject' | translate }}</button>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
                 <button class="btn btn-primary edit-template" ng-enabled="selectedTemplate">{{ 'edit' | translate }}</button>
                 <button class="btn btn-danger delete-template" ng-enabled="selectedTemplate">{{ 'delete' | translate }}</button>
 
-                <button class="btn btn-success save-page-as-template">{{ 'saveAsTemplate' | translate }}</button>
+                <button class="btn btn-primary save-page-as-template">{{ 'saveAsTemplate' | translate }}</button>
                 <div class="loader" ng-if="templates.loading"><i class="icon icon-spin6 icon-spin"></i></div>
             </section>
 
@@ -135,7 +135,7 @@
                             <div class="text-danger">{{ template.error }}</div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success">{{ 'saveAndClose' | translate }}</button>
+                            <button class="btn btn-primary">{{ 'saveAndClose' | translate }}</button>
                         </div>
                     </div>
                 </div>
@@ -256,7 +256,7 @@
                                             </ul>
                                             <div id="addclass-flyout" class="hidden">
                                                 <input type="text" id="addclass-input" ng-model="classInput">
-                                                <button class="btn btn-sm btn-success add-class"> <i class="icon icon-ok-outline"></i></button>
+                                                <button class="btn btn-sm btn-primary add-class"> <i class="icon icon-ok-outline"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -765,7 +765,7 @@
                     <div id="link-details" class="hidden">
                         <input type="text" class="form-control" ng-model="href" placeholder="Url...">
                         <input type="text" class="form-control" ng-model="title" placeholder="Title...">
-                        <button type="button" class="btn btn-success" id="wrap-with-link" ng-disabled="href == 'http://'">Go</button>
+                        <button type="button" class="btn btn-primary" id="wrap-with-link" ng-disabled="href == 'http://'">Go</button>
                     </div>
                 </div>
             </section>
@@ -780,9 +780,9 @@
                 <select class="pretty-select" ng-model="editors.theme" ng-options="name for name in themes" ng-change="editors.changeTheme()"></select>
             </div>
             <div class="pull-right" id="editor-icons">
-                <button ng-class="{ active: editors.currentlyOpen === 'html' }" class="btn btn-success btn-sm" type="button" bl-show-editor="html">{{ 'html' | translate }}</button>
-                <button ng-class="{ active: editors.currentlyOpen === 'css' }" class="btn btn-success btn-sm" type="button" bl-show-editor="css">{{ 'css' | translate }}</button>
-                <button ng-class="{ active: editors.currentlyOpen === 'js' }" class="btn btn-success btn-sm" type="button" bl-show-editor="js">{{ 'js' | translate }}</button>
+                <button ng-class="{ active: editors.currentlyOpen === 'html' }" class="btn btn-primary btn-sm" type="button" bl-show-editor="html">{{ 'html' | translate }}</button>
+                <button ng-class="{ active: editors.currentlyOpen === 'css' }" class="btn btn-primary btn-sm" type="button" bl-show-editor="css">{{ 'css' | translate }}</button>
+                <button ng-class="{ active: editors.currentlyOpen === 'js' }" class="btn btn-primary btn-sm" type="button" bl-show-editor="js">{{ 'js' | translate }}</button>
                 <button class="btn btn-sm with-icon expand-editor"><i class="icon icon-resize-full-alt"></i> </button>
                 <button class="btn btn-sm with-icon close-editor"><i class="icon icon-cancel"></i> </button>
             </div>
@@ -840,7 +840,7 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-danger close-modal">{{ 'close' | translate }}</button>
-                            <button class="btn btn-success float-right save-library">{{ 'saveAndClose' | translate }}</button>
+                            <button class="btn btn-primary float-right save-library">{{ 'saveAndClose' | translate }}</button>
                         </div>
                     </div>
                 </div>
@@ -928,7 +928,7 @@
                                             </div>
                                             <div ng-if="folder.creating" class="creating-folder">
                                                 <input ng-model="newFolder.name" type="text" name="name" class="form-control">
-                                                <button class="btn btn-sm btn-success" ng-click="createFolder()"> <i class="icon icon-check"></i></button>
+                                                <button class="btn btn-sm btn-primary" ng-click="createFolder()"> <i class="icon icon-check"></i></button>
                                                 <button class="btn btn-sm btn-danger" ng-click="cancelFolderCreation()"> <i class="icon icon-cancel"></i></button>
                                             </div>
                                         </li>
@@ -961,7 +961,7 @@
                                     <img class="img-responsive" src="assets/images/filedrop.png">
                                     <h2>{{ 'dropImageToUpload' | translate }}</h2>
                                     <div class="separator"><span>{{ 'or' | translate }}</span></div>
-                                    <button class="btn btn-success btn-lg" ng-file-select="onFileSelect($files)" data-multiple="true">{{ 'selectImageFrom' | translate }}</button>
+                                    <button class="btn btn-primary btn-lg" ng-file-select="onFileSelect($files)" data-multiple="true">{{ 'selectImageFrom' | translate }}</button>
                                 </div>
                             </div>
                         </div>

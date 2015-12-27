@@ -77,7 +77,7 @@
 				<figure ng-class="{active: project.id == selectedProject.id}">
                     <div class="header">
                         <a target="_blank" href="{{ getProjectUrl(project) }}">{{:: 'viewProject' | translate }}</a>
-                        <input ng-checked="project.published" ng-model="project.published" ng-change="togglePublished(project)" type="checkbox" icheck>
+<!--                        <input ng-checked="project.published" ng-model="project.published" ng-change="togglePublished(project)" type="checkbox" icheck>-->
                     </div>
 					<img bl-open-in-builder="{{ project.name }}" class="img-responsive" ng-src="assets/images/projects/project-{{project.id}}.png?{{project.updated_at}}">
 					<figcaption class="clearfix">

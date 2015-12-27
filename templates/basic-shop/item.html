@@ -10,7 +10,7 @@
     <!--	<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />-->
 
     <!-- Includes FontAwesome -->
-    
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" />
 
     <!-- Css -->
     <link rel="stylesheet" href="css/styles.css" />
@@ -20,16 +20,9 @@
     <script src="js/holder.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-ui-router.min.js"></script>
-    <script src="js/app2.js"></script>
     <script src="js/app.js"></script>
     <!--	<script src="js/script.js"></script>-->
 
-
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="css/index-stylesheet.css">
 </head>
 
 <body ng-app="shop">
@@ -50,7 +43,7 @@
     </nav>
 
     <div class="container" ui-view>
-        <div class="row" ng-controller="GridController">
+        <div class="row" ng-controller="ItemController">
             <div class="col-md-3">
                 <div class="well">
 
@@ -70,51 +63,48 @@
             </div>
 
             <div class="col-md-9">
-                <div class="jumbotron">
-                    <h1 class="">Special Offer</h1>
-                    <p class="">here is the best offer of the month! Do not loose it!</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="thumbnail">
+                            <img src="{{$root.selectedProduct.img}}" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h4>{{$root.selectedProduct.name}}</h4>
+                        <p>{{$root.selectedProduct.desc}}</p>
+                        <h4>${{$root.selectedProduct.price}}</h4>
+                        <form>
+                            <div class="row">
+                                <label>
+                                    <div class="col-md-1">Qty</div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="quantity" />
+                                    </div>
+                                </label>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary" ng-click="cart.add($root.selectedProduct, quantity)">Add to Cart</button>
+                                </div>
+
+                            </div>
+                            </br>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4" ng-repeat="product in products track by $index">
-                        <div class="thumbnail">
-                            <img src="{{product.img}}" alt="">
-                            <div class="caption">
-                                <h4>{{product.name}}</h4>
-                                <p>${{product.price}}</p>
-                                <a class="btn btn-primary" ng-click="itemClicked(product)">View</a>
-                                <button class="btn btn-success" ng-click="cart.add(product, 1)">Add to Cart</button>
-                                <button class="btn btn-default btn-sm" ng-click="edit(product)" ng-if="$root.isAdmin"><i class="icon icon-edit"></i></button>
-                                <button class="btn btn-default btn-sm" ng-if="$root.isAdmin" ng-click="delete(product)"><i class="icon icon-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" ng-if="$root.isAdmin">
-                        <div class="thumbnail">
-                            <img src="{{product.img}}" alt="">
-                            <div class="caption">
-                                <h4>New Product</h4>
-                                <a class="btn btn-primary" ng-click="edit({})">Add</a>
+                    <div class="col-md-9">
+                        <ul class="nav nav-tabs" id="tabs">
+                            <li class="active"><a href="">Description</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="description">
+                                <p> {{$root.selectedProduct.desc}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!--
-				<div class="pagination">
-					<ul>
-						<li class"disabled"><span>Prev</span></li>
-						<li class"disabled"><span>1</span></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">Next</a></li>
-					</ul>
-				</div>
--->
-
             </div>
         </div>
     </div>
@@ -185,12 +175,6 @@
             </div>
         </div>
     </footer>
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/angular.min.js"></script>
-<script src="js/angular-ui-router.min.js"></script>
-<script src="js/holder.js"></script>
-<script id="main-script" src="js/index-scripts.js"></script>
 </body>
 
 </html>

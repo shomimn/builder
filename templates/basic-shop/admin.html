@@ -10,7 +10,7 @@
     <!--	<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />-->
 
     <!-- Includes FontAwesome -->
-    
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" />
 
     <!-- Css -->
     <link rel="stylesheet" href="css/styles.css" />
@@ -20,16 +20,9 @@
     <script src="js/holder.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-ui-router.min.js"></script>
-    <script src="js/app2.js"></script>
     <script src="js/app.js"></script>
     <!--	<script src="js/script.js"></script>-->
 
-
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="css/index-stylesheet.css">
 </head>
 
 <body ng-app="shop">
@@ -50,71 +43,46 @@
     </nav>
 
     <div class="container" ui-view>
-        <div class="row" ng-controller="GridController">
-            <div class="col-md-3">
-                <div class="well">
-
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                            <i class="icon-shopping-cart"></i>
-                            <!--							3 item - $999.99-->
-                            {{cart.size()}} - ${{cart.total()}}
-                            <b class="caret"></b></a>
-                        </a>
-                        <div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
-                            <p ng-repeat="product in cart.products">{{product.product.name}} x {{product.quantity}}<span class="pull-right">${{product.product.price * product.quantity}}</span></p>
-                            <a class="btn btn-primary" ng-click="openCart()">Cart</a> <a class="btn btn-success" ng-click="checkout()">Checkout</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-                <div class="jumbotron">
-                    <h1 class="">Special Offer</h1>
-                    <p class="">here is the best offer of the month! Do not loose it!</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
-                </div>
-
+        <div class="row" ng-controller="AdminController">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
                 <div class="row">
-                    <div class="col-md-4" ng-repeat="product in products track by $index">
-                        <div class="thumbnail">
-                            <img src="{{product.img}}" alt="">
-                            <div class="caption">
-                                <h4>{{product.name}}</h4>
-                                <p>${{product.price}}</p>
-                                <a class="btn btn-primary" ng-click="itemClicked(product)">View</a>
-                                <button class="btn btn-success" ng-click="cart.add(product, 1)">Add to Cart</button>
-                                <button class="btn btn-default btn-sm" ng-click="edit(product)" ng-if="$root.isAdmin"><i class="icon icon-edit"></i></button>
-                                <button class="btn btn-default btn-sm" ng-if="$root.isAdmin" ng-click="delete(product)"><i class="icon icon-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" ng-if="$root.isAdmin">
-                        <div class="thumbnail">
-                            <img src="{{product.img}}" alt="">
-                            <div class="caption">
-                                <h4>New Product</h4>
-                                <a class="btn btn-primary" ng-click="edit({})">Add</a>
-                            </div>
-                        </div>
+                    <div class="col-md-5">
+                        <label> Product Name:</label>
+                        <input type="text" class="form-control" ng-model="$root.selectedProduct.name" name="name">
                     </div>
                 </div>
-
-                <!--
-				<div class="pagination">
-					<ul>
-						<li class"disabled"><span>Prev</span></li>
-						<li class"disabled"><span>1</span></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">Next</a></li>
-					</ul>
-				</div>
--->
-
+                <div class="row">
+                    <div class="col-md-5">
+                        <label> Price:</label>
+                        <input type="number" class="form-control" ng-model="$root.selectedProduct.price" name="price">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label> Image:</label>
+                        <input type="text" class="form-control" ng-model="$root.selectedProduct.img" name="img">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label> Description:</label>
+                        <textarea type="textarea" class="form-control" ng-model="$root.selectedProduct.desc" name="desc"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label> Category:</label>
+                        <input type="text" class="form-control" ng-model="$root.selectedProduct.category" name="category">
+                    </div>
+                </div>
+                </br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="btn btn-success" ng-click="save()">Save</a>
+                        <a class="btn btn-default" ng-click="cancel()">Cancel</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -185,12 +153,6 @@
             </div>
         </div>
     </footer>
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/angular.min.js"></script>
-<script src="js/angular-ui-router.min.js"></script>
-<script src="js/holder.js"></script>
-<script id="main-script" src="js/index-scripts.js"></script>
 </body>
 
 </html>
