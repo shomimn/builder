@@ -49,7 +49,7 @@ baseBuilderElements.push({
  	validChildren: ['flow'],
  	category: 'components',
  	previewScale: '0.4',
-    icon: 'th-list-1',
+    icon: 'th-list-1'
 });
 
 baseBuilderElements.push({
@@ -88,9 +88,9 @@ baseBuilderElements.push({
 	 		list: [
 	            {name: 'default', value: 'container'},
 	            {name: 'wide', value: 'container-fluid'},
-	        ],
+	        ]
 	    }
- 	},
+ 	}
 });
 
 baseBuilderElements.push({
@@ -322,15 +322,15 @@ baseBuilderElements.push({
 	 		list: [
 	            {name: 'Medium', value: ''},
 	            {name: 'Large', value: 'input-group-lg'},
-	            {name: 'Small', value: 'input-group-sm' },
-	        ],
+	            {name: 'Small', value: 'input-group-sm' }
+	        ]
 	    }
  	},
  	previewScale: '0.5',
  	showWysiwyg: false,
  	category: 'forms',
     icon: 'popup',
- 	hiddenClasses: ['input-group'],
+ 	hiddenClasses: ['input-group']
 });
 
 baseBuilderElements.push({
@@ -350,7 +350,7 @@ baseBuilderElements.push({
  				{name: 'None', value: ''},
 	            {name: 'Error', value: 'has-error'},
 	            {name: 'Success', value: 'has-success'},
-	            {name: 'Warning', value: 'has-warning'},
+	            {name: 'Warning', value: 'has-warning'}
 	        ]
  		}
  	},
@@ -419,7 +419,7 @@ baseBuilderElements.push({
  		side: {
 	 		list: [
 	            {name: 'Left', value: 'left'},
-	            {name: 'Right', value: 'right'},
+	            {name: 'Right', value: 'right'}
 	        ],
 	        value: false,
  			onAssign: function($scope) {
@@ -447,7 +447,7 @@ baseBuilderElements.push({
 	    		{name: 'Checkbox', value: 'checkbox'},
 	    		{name: 'Radio', value: 'radio'},
 	    		{name: 'Button', value: 'button'},
-	    		{name: 'Dropdown', value: 'dropdown'},
+	    		{name: 'Dropdown', value: 'dropdown'}
 	    	],
 	    	onAssign: function($scope) {
 	    		var childs = $($scope.selected.node).children();
@@ -500,7 +500,7 @@ baseBuilderElements.push({
 	    }
  	},
  	showWysiwyg: false,
- 	hiddenClasses: ['input-group-addon'],
+ 	hiddenClasses: ['input-group-addon']
 });
 
 baseBuilderElements.push({
@@ -522,8 +522,8 @@ baseBuilderElements.push({
  				{name: 'None', value: ''},
 	            {name: 'Error', value: 'has-error'},
 	            {name: 'Success', value: 'has-success'},
-	            {name: 'Warning', value: 'has-warning'},
-	        ],
+	            {name: 'Warning', value: 'has-warning'}
+	        ]
  		}
  	},
  	previewScale: '0.5',
@@ -554,9 +554,9 @@ baseBuilderElements.push({
 	            {name: 'Rounded', value: 'img-rounded'},
 	            {name: 'Thumbnail', value: 'img-thumbnail'},
 	            {name: 'Circle', value: 'img-circle'},
-	        ],
+	        ]
  		}
- 	},
+ 	}
 });
 
 baseBuilderElements.push({
@@ -584,7 +584,7 @@ baseBuilderElements.push({
  			}
  		}
  	},
- 	hiddenClasses: ['embed-responsive', 'preview-node', 'img-responsive'],
+ 	hiddenClasses: ['embed-responsive', 'preview-node', 'img-responsive']
 });
 
 baseBuilderElements.push({

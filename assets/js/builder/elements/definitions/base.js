@@ -21,7 +21,7 @@ baseBuilderElements.push({
  				{name: '0.7', value: '.7'},
  				{name: '0.8', value: '.8'},
  				{name: '0.9', value: '.9'},
- 				{name: '1', value: '1'},
+ 				{name: '1', value: '1'}
  			],
  			value: '',
  			onAssign: function($scope) {
@@ -139,7 +139,7 @@ baseBuilderElements.push({
  	nodes: ['li'],
  	html: '<li>A basic list item</li>',
  	types: ['li'],
- 	validChildren: ['flow'],
+ 	validChildren: ['flow']
 });
 
 baseBuilderElements.push({
@@ -160,7 +160,7 @@ baseBuilderElements.push({
  	html: false,
  	draggable: false,
  	types: ['flow'],
- 	validChildren: ['flow'],
+ 	validChildren: ['flow']
 });
 
 baseBuilderElements.push({
@@ -204,7 +204,7 @@ baseBuilderElements.push({
  				{name: 'h3', value: 'h3'},
  				{name: 'h4', value: 'h4'},
  				{name: 'h5', value: 'h5'},
- 				{name: 'h6', value: 'h6'},
+ 				{name: 'h6', value: 'h6'}
  			],
  			value: 'h1',
  			onAssign: function($scope) {
@@ -264,7 +264,7 @@ baseBuilderElements.push({
  			}
  		}
  	},
- 	dragHelper: true,
+ 	dragHelper: true
 });
 
 baseBuilderElements.push({

@@ -8423,7 +8423,7 @@ li.ui-state-focus {
 	padding:0
 }
 #context-menu .disabled {
-	color:#537587;
+	color:#616161;
 	pointer-events:none
 }
 #context-menu .disabled:hover {
@@ -8454,7 +8454,7 @@ li.ui-state-focus {
 }
 #context-menu li>.command-keybind {
 	float:right;
-	color:#6a90a3;
+	color:#616161;
 	padding-right:10px;
 	font-size:11px;
 	font-weight:500
@@ -10754,7 +10754,7 @@ li.ui-state-focus {
 #inspector #attributes-panel .btn-block {
 	margin-top:15px;
 	border-radius:0;
-	border-bottom:3px solid #106d99
+	/*border-bottom:3px solid #106d99*/
 }
 #inspector #attributes-panel input,#inspector .pretty-input {
 	background-color:#616161;

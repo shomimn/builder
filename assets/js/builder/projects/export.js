@@ -60,6 +60,7 @@ angular.module('builder.projects')
 
 		//get local image urls from inline styles in html
 		var pattern = new RegExp('url\\((.+?)\\)', 'g');
+		var matches = null;
  		
 		while (matches = pattern.exec($scope.activePage.ref.html)) {	 
 		    if (matches[1]) { urls.push(matches[1]); };	 

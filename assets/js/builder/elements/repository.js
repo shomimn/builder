@@ -227,7 +227,9 @@ angular.module('builder.elements')
                 html = '<li data-name="'+el.name+'" data-frameworks="'+el.frameworks.toString()+'">'+
                 '<div class="el-list-item"><div class="icon"><i class="icon icon-'+el.icon+'"></i></div><div class="text">'+$translate.instant(el.camelName)+'</div><p class="el-description">'+(description == el.camelName+'Desc' ? '' : description)+'</p></li>';
 
-                draggable.create($(html).appendTo('#'+el.category+' .list-unstyled'), el);
+                //draggable.create($(html).appendTo('#'+el.category+' .list-unstyled'), el);
+                if (el.category)
+                    draggable.create($(html).appendTo('#elements'), el);
             }
         },
 

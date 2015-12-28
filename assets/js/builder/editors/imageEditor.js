@@ -100,7 +100,7 @@ angular.module('builder.editors')
 	       		});
 			}
 		}
-	}
+	};
 
 	return editor;
-}])
+}]);

@@ -14,19 +14,19 @@ angular.module('dragAndDrop')
 	 */
 	scroller.scroll = function (y) {
 		var st = $rootScope.frameBody.scrollTop(),
-			pointY = y - $rootScope.frameOffset.top + st;
+				pointY = y - $rootScope.frameOffset.top + st;
 
 		if ( ! scroller.sh) {
 			scroller.sh = $('#frame-wrapper').height();
 		}
 
-        if (pointY - st - 10 <= $rootScope.frameOffset.top) {
-            scroller.scrollFrameUp()
-        } else if (pointY > st + scroller.sh - 80) {
-        	scroller.scrollFrameDown();           
-        } else {		        	
-        	scroller.stopScrolling();
-        }
+		if (pointY - st - 10 <= $rootScope.frameOffset.top) {
+			scroller.scrollFrameUp()
+		} else if (pointY > st + scroller.sh - 80) {
+			scroller.scrollFrameDown();
+		} else {
+			scroller.stopScrolling();
+		}
 	};
 
 	/**
