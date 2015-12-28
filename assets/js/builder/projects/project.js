@@ -8,7 +8,7 @@ angular.module('builder.projects', [])
 
 		/**
 		 * Currently active project.
-		 * 
+		 *
 		 * @type mixed
 		 */
 		active: false,

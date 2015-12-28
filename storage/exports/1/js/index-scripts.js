@@ -1,32 +1,38 @@
-﻿$(document).ready(function () {
+(function ($) {
 
-    // CLIENTS CAROUSEL SCRIPTS 
-    $('#carousel-clients').carousel({
-        interval: 3000 //TIME IN MILLI SECONDS
-    })
+	new WOW().init();
 
-   });
+	jQuery(window).load(function() { 
+		jQuery("#preloader").delay(100).fadeOut("slow");
+		jQuery("#load").delay(100).fadeOut("slow");
+	});
 
-/*!
- * IE10 viewport hack for Surface/desktop Windows 8 bug
- * Copyright 2014 Twitter, Inc.
- * Licensed under the Creative Commons Attribution 3.0 Unported License. For
- * details, see http://creativecommons.org/licenses/by/3.0/.
- */
 
-// See the Getting Started docs for more information:
-// http://getbootstrap.com/getting-started/#support-ie10-width
+	//jQuery to collapse the navbar on scroll
+	$(window).scroll(function() {
+		if ($(".navbar").offset().top > 50) {
+			$(".navbar-fixed-top").addClass("top-nav-collapse");
+		} else {
+			$(".navbar-fixed-top").removeClass("top-nav-collapse");
+		}
+	});
 
-(function () {
-    'use strict';
-    if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
-        var msViewportStyle = document.createElement('style')
-        msViewportStyle.appendChild(
-          document.createTextNode(
-            '@-ms-viewport{width:auto!important}'
-          )
-        )
-        document.querySelector('head').appendChild(msViewportStyle)
-    }
-})();
+	//jQuery for page scrolling feature - requires jQuery Easing plugin
+	$(function() {
+		$('.navbar-nav li a').bind('click', function(event) {
+			var $anchor = $(this);
+			$('html, body').stop().animate({
+				scrollTop: $($anchor.attr('href')).offset().top
+			}, 1500, 'easeInOutExpo');
+			event.preventDefault();
+		});
+		$('.page-scroll a').bind('click', function(event) {
+			var $anchor = $(this);
+			$('html, body').stop().animate({
+				scrollTop: $($anchor.attr('href')).offset().top
+			}, 1500, 'easeInOutExpo');
+			event.preventDefault();
+		});
+	});
 
+})(jQuery);

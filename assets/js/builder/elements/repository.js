@@ -87,9 +87,25 @@ angular.module('builder.elements')
                     return node.parentNode;
                 }
             },
+
+            //if selecting .dropdown-toggle add .open to parent and remove the class when reselecting
+            function(node, parent, classes, pClasses) {
+                if (node.className == 'dropdown-toggle' && $rootScope.selected.node == node) {
+                    var toggle = node;
+                    //var menu = $(parent).find('.dropdown-menu');
+                    var unbind = $rootScope.$on('element.reselected', function(event, element) {
+                        if (element == toggle)
+                            return;
+                        angular.element(parent).removeClass('open');
+                        unbind();
+                        console.log('handler');
+                    });
+                    angular.element(parent).addClass('open');
+                }
+            }
         ],
 
-        checkForSpecialCases: function(node) {
+        checkForSpecialCases: function(node, type) {
             if ( ! node ) { return false };
 
             //cache some needed node properties

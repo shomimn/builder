@@ -2,7 +2,7 @@
 
 angular.module('builder')
 
-.directive('blContextBoxActions', ['dom', function(dom) {
+.directive('blContextBoxActions', ['$rootScope', 'dom', function($rootScope, dom) {
     return {
         restrict: 'A',
         link: function($scope, el) {
@@ -14,15 +14,18 @@ angular.module('builder')
                     dom.delete($scope.selected.node);
                 } else if (action == 'edit') {
                     if ($scope.selected.element.onEdit) {
-                        //var href =  $($scope.selected.node).attr('href');
-                        //var iframe = document.getElementById('iframe');
-                        //var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-                        //var element = innerDoc.getElementById(href.substring(1));
-                        //element.scrollIntoView();
                         $scope.selected.element.onEdit($scope);
-                    } else if ($scope.canEdit('text')) {
+                    }  else if ($scope.canEdit('text')) {
                         $scope.$broadcast('builder.contextBox.editBtn.click', e);
                     }
+                } else if (action == 'link') {
+                    //var frame = $rootScope.frame[0];
+                    //var href =  $($scope.selected.node).attr('href');
+                    //var innerDoc = frame.contentDocument || frame.contentWindow.document;
+                    //var element = innerDoc.getElementById(href.substring(1));
+                    //element.scrollIntoView();
+                } else if (action == 'image') {
+
                 }
             });
         }
@@ -41,6 +44,8 @@ angular.module('builder')
                     $scope.contextMenu.hide();
 
                     $scope.frameWindow.focus();
+
+                    $('#background-flyout-panel').find('.bl-panel-btns').click();
 
                     if ($scope.resizing || $scope.selected.node == e.target) { return true; };
 
@@ -62,6 +67,7 @@ angular.module('builder')
                         $scope.textToolbar.addClass('hidden');
                         $scope.$emit('builder.html.changed');
                     }
+
 
                     //hide linker
                     $scope.linker.addClass('hidden');

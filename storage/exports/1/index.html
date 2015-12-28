@@ -1,29 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Responsive Web Mobile - Ecommerce</title>
-
-    <!-- Included Bootstrap CSS Files -->
-    <link rel="stylesheet" href="css/bootstrap.css" />
-    <!--	<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />-->
-
-    <!-- Includes FontAwesome -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
-
-    <!-- Css -->
-    <link rel="stylesheet" href="css/styles.css" />
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/holder.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/angular-ui-router.min.js"></script>
-    <script src="js/app2.js"></script>
-    <script src="js/app.js"></script>
-    <!--	<script src="js/script.js"></script>-->
-
+    
 
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 
@@ -32,164 +15,360 @@
 	<link rel="stylesheet" href="css/index-stylesheet.css">
 </head>
 
-<body ng-app="shop">
+<body id="page-top" class="">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <h1>SQUAD FREE</h1>
+                </a>
+            </div>
 
-            <div>
-                <ul class="nav navbar-nav navbar-tabs dash-nav-tabs">
-                    <li><a href="#">Shop</a></li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-tabs dash-nav-tabs navbar-right">
-                    <li><a href="#adminModal" data-toggle="modal">Admin</a></li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#intro">Home</a>
+                    </li>
+                    <li><a href="Page2.html">About</a>
+                    </li>
+                    <li><a href="#service">Service</a>
+                    </li>
+                    <li><a href="#contact">Contact</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Example menu</a>
+                            </li>
+                            <li><a href="#">Example menu</a>
+                            </li>
+                            <li><a href="#">Example menu</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container -->
     </nav>
 
-    <div class="container" ui-view>
-        <div class="row" ng-controller="GridController">
-            <div class="col-md-3">
-                <div class="well">
+    <!-- Section: intro -->
+    <section id="intro" class="intro">
 
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                            <i class="icon-shopping-cart"></i>
-                            <!--							3 item - $999.99-->
-                            {{cart.size()}} - ${{cart.total()}}
-                            <b class="caret"></b></a>
-                        </a>
-                        <div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
-                            <p ng-repeat="product in cart.products">{{product.product.name}} x {{product.quantity}}<span class="pull-right">${{product.product.price * product.quantity}}</span></p>
-                            <a class="btn btn-primary" ng-click="openCart()">Cart</a> <a class="btn btn-success" ng-click="checkout()">Checkout</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="slogan">
+            <h2>WELCOME TO <span class="text_color">SQUAD</span> </h2>
+            <h4>WE ARE GROUP OF GENTLEMEN MAKING AWESOME WEB WITH BOOTSTRAP</h4>
+        </div>
+        <div class="page-scroll">
+            <a href="#service" class="btn btn-circle">
+                <i class="fa fa-angle-double-down animated"></i>
+            </a>
+        </div>
+    </section>
+    <!-- /Section: intro -->
 
-            <div class="col-md-9">
-                <div class="jumbotron">
-                    <h1 class="">Special Offer</h1>
-                    <p class="">here is the best offer of the month! Do not loose it!</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
-                </div>
-
+    <!-- Section: about -->
+    <section id="about" class="home-section text-center">
+        <div class="heading-about">
+            <div class="container">
                 <div class="row">
-                    <div class="col-md-4" ng-repeat="product in products track by $index">
-                        <div class="thumbnail">
-                            <img src="{{product.img}}" alt="">
-                            <div class="caption">
-                                <h4>{{product.name}}</h4>
-                                <p>${{product.price}}</p>
-                                <a class="btn btn-primary" ng-click="itemClicked(product)">View</a>
-                                <button class="btn btn-success" ng-click="cart.add(product, 1)">Add to Cart</button>
-                                <button class="btn btn-default btn-sm" ng-click="edit(product)" ng-if="$root.isAdmin"><i class="icon icon-edit"></i></button>
-                                <button class="btn btn-default btn-sm" ng-if="$root.isAdmin" ng-click="delete(product)"><i class="icon icon-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" ng-if="$root.isAdmin">
-                        <div class="thumbnail">
-                            <img src="{{product.img}}" alt="">
-                            <div class="caption">
-                                <h4>New Product</h4>
-                                <a class="btn btn-primary" ng-click="edit({})">Add</a>
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="wow bounceInDown" data-wow-delay="0.4s">
+                            <div class="section-heading">
+                                <h2>About us</h2>
+                                <i class="fa fa-2x fa-angle-down"></i>
+
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!--
-				<div class="pagination">
-					<ul>
-						<li class"disabled"><span>Prev</span></li>
-						<li class"disabled"><span>1</span></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">Next</a></li>
-					</ul>
-				</div>
--->
-
             </div>
         </div>
-    </div>
+        <div class="container">
 
-    <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" ng-controller="LoginController">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="adminModalLabel">Admin Log in</h4>
+            <div class="row">
+                <div class="col-lg-2 col-lg-offset-5">
+                    <hr class="marginbot-50">
                 </div>
-                <div class="modal-body" ng-hide="$root.isAdmin">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label> Username:</label>
-                            <input type="text" class="form-control" ng-model="username" name="username">
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-3 col-md-3">
+                    <div class="wow bounceInUp" data-wow-delay="0.2s">
+                        <div class="team boxed-grey">
+                            <div class="inner">
+                                <h5>Anna Hanaceck</h5>
+                                <p class="subtitle">Pixel Crafter</p>
+                                <div class="avatar">
+                                    <img src="images/1.jpg" alt="" class="img-responsive img-circle">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label> Password:</label>
-                            <input type="password" class="form-control" ng-model="password" name="password">
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-3">
+                    <div class="wow bounceInUp" data-wow-delay="0.5s">
+                        <div class="team boxed-grey">
+                            <div class="inner">
+                                <h5>Maura Daniels</h5>
+                                <p class="subtitle">Ruby on Rails</p>
+                                <div class="avatar">
+                                    <img src="images/2.jpg" alt="" class="img-responsive img-circle">
+                                </div>
+
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-                <div class="modal-body" ng-show="$root.isAdmin">
-                    Already logged in!
+                <div class="col-xs-6 col-sm-3 col-md-3">
+                    <div class="wow bounceInUp" data-wow-delay="0.8s">
+                        <div class="team boxed-grey">
+                            <div class="inner">
+                                <h5>Jack Briane</h5>
+                                <p class="subtitle">jQuery Ninja</p>
+                                <div class="avatar">
+                                    <img src="images/3.jpg" alt="" class="img-responsive img-circle">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-                    <button class="btn btn-primary" ng-click="login()" ng-if="!$root.isAdmin">Log in</button>
+                <div class="col-xs-6 col-sm-3 col-md-3">
+                    <div class="wow bounceInUp" data-wow-delay="1s">
+                        <div class="team boxed-grey">
+                            <div class="inner">
+                                <h5>Tom Petterson</h5>
+                                <p class="subtitle">Typographer</p>
+                                <div class="avatar">
+                                    <img src="images/4.jpg" alt="" class="img-responsive img-circle">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- /Section: about -->
 
-    <hr />
 
-    <footer id="footer" class="vspace20">
+    <!-- Section: services -->
+    <section id="service" class="home-section text-center bg-gray">
+
+        <div class="heading-about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="wow bounceInDown" data-wow-delay="0.4s">
+                            <div class="section-heading">
+                                <h2>Our Services</h2>
+                                <i class="fa fa-2x fa-angle-down"></i>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h4>Info</h4>
-                    <ul class="nav nav-stacked">
-                        <li><a href="">Sell Conditions</a>
-                            <li><a href="">Shipping Costs</a>
-                                <li><a href="">Shipping Conditions</a>
-                                    <li><a href="">Returns</a>
-                                        <li><a href="">About Us</a>
-                    </ul>
+                <div class="col-lg-2 col-lg-offset-5">
+                    <hr class="marginbot-50">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-md-3">
+                    <div class="wow fadeInLeft" data-wow-delay="0.2s">
+                        <div class="service-box">
+                            <div class="service-icon">
+                                <img src="images/service-icon-1.png" alt="">
+                            </div>
+                            <div class="service-desc">
+                                <h5>Print</h5>
+                                <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <div class="wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="service-box">
+                            <div class="service-icon">
+                                <img src="images/service-icon-2.png" alt="">
+                            </div>
+                            <div class="service-desc">
+                                <h5>Web Design</h5>
+                                <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <div class="wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="service-box">
+                            <div class="service-icon">
+                                <img src="images/service-icon-3.png" alt="">
+                            </div>
+                            <div class="service-desc">
+                                <h5>Photography</h5>
+                                <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <div class="wow fadeInRight" data-wow-delay="0.2s">
+                        <div class="service-box">
+                            <div class="service-icon">
+                                <img src="images/service-icon-4.png" alt="">
+                            </div>
+                            <div class="service-desc">
+                                <h5>Cloud System</h5>
+                                <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Section: services -->
+
+
+
+
+    <!-- Section: contact -->
+    <section id="contact" class="home-section text-center">
+        <div class="heading-contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="wow bounceInDown" data-wow-delay="0.4s">
+                            <div class="section-heading">
+                                <h2>Get in touch</h2>
+                                <i class="fa fa-2x fa-angle-down"></i>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-2 col-lg-offset-5">
+                    <hr class="marginbot-50">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="boxed-grey">
+                        <form id="contact-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">
+                                            Name</label>
+                                        <input class="form-control" id="name" placeholder="Enter name" required="required" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">
+                                            Email Address</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-envelope"></span>
+                                            </span>
+                                            <input class="form-control" id="email" placeholder="Enter email" required="required" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subject">
+                                            Subject</label>
+                                        <select id="subject" name="subject" class="form-control" required="required">
+                                            <option value="na" selected="">Choose One:</option>
+                                            <option value="service">General Customer Service</option>
+                                            <option value="suggestions">Suggestions</option>
+                                            <option value="product">Product Support</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">
+                                            Message</label>
+                                        <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                                        Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="col-md-4">
-                    <h4>Location and Contacts</h4>
-                    <p><i class="icon-map-marker"></i>&nbsp;I do not Know Avenue, A City</p>
-                    <p><i class="icon-phone"></i>&nbsp;Phone: 234 739.126.72</p>
-                    <p><i class="icon-print"></i>&nbsp;Fax: 213 123.12.090</p>
-                    <p><i class="icon-envelope"></i>&nbsp;Email: info@mydomain.com</p>
-                    <p><i class="icon-globe"></i>&nbsp;Web: http://www.mydomain.com</p>
+                <div class="col-lg-4">
+                    <div class="widget-contact">
+                        <h5>Main Office</h5>
+
+                        <address>
+				  <strong>Squas Design, Inc.</strong><br>
+				  Tower 795 Folsom Ave, Beautiful Suite 600<br>
+				  San Francisco, CA 94107<br>
+				  <abbr title="Phone">P:</abbr> (123) 456-7890
+				</address>
+
+                        <address>
+				  <strong>Email</strong><br>
+				  <a href="mailto:#">email.name@example.com</a>
+				</address>	
+                        <address>
+				  <strong>We're on social networks</strong><br>
+                       	<ul class="company-social">
+                            <li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            <li class="social-dribble"><a href="#" target="_blank"><i class="fa fa-dribbble"></i></a></li>
+                            <li class="social-google"><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                        </ul>	
+				</address>	
+
+                    </div>
                 </div>
             </div>
 
+        </div>
+    </section>
+    <!-- /Section: contact -->
+
+    <footer>
+        <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <p>&copy; Copyright 2015.&nbsp;<a href="#">Privacy</a>&nbsp;&amp;&nbsp;<a href="#">Terms and Conditions</a></p>
-                </div>
-                <div class="col-md-6">
-                    <a class="pull-right" href="" target="_blank">credits by Random Name</a>
+                <div class="col-md-12 col-lg-12">
+                    <div class="wow shake" data-wow-delay="0.4s">
+                        <div class="page-scroll marginbot-30">
+                            <a href="#intro" id="totop" class="btn btn-circle">
+                                <i class="fa fa-angle-double-up animated"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <p>©Copyright 2014 - Squad. All rights reserved.</p>
                 </div>
             </div>
         </div>
     </footer>
+
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/angular.min.js"></script>
-<script src="js/angular-ui-router.min.js"></script>
-<script src="js/holder.js"></script>
+<script src="js/jquery-easing.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/scroll-to.js"></script>
 <script id="main-script" src="js/index-scripts.js"></script>
 </body>
 

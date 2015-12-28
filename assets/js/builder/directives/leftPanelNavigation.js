@@ -1,4 +1,4 @@
-angular.module('builder.directives').directive('leftPanelNavigation', ['panels', function(panels) {
+    angular.module('builder.directives').directive('leftPanelNavigation', ['panels', function(panels) {
     return {
         restrict: 'A',
         link: function($scope, el) {
