@@ -14,12 +14,11 @@ angular.module('builder')
                     dom.delete($scope.selected.node);
                 } else if (action == 'edit') {
                     if ($scope.selected.element.onEdit) {
-                        //var c = $($scope.selected.node);
-                        //var h = c.attr('href');
+                        //var href =  $($scope.selected.node).attr('href');
                         //var iframe = document.getElementById('iframe');
                         //var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-                        //var s = innerDoc.getElementById(h.substring(1));
-                        //s.scrollIntoView();
+                        //var element = innerDoc.getElementById(href.substring(1));
+                        //element.scrollIntoView();
                         $scope.selected.element.onEdit($scope);
                     } else if ($scope.canEdit('text')) {
                         $scope.$broadcast('builder.contextBox.editBtn.click', e);
