@@ -47,7 +47,7 @@ angular.module('builder')
 
                     $('#background-flyout-panel').find('.bl-panel-btns').click();
 
-                    if ($scope.resizing || $scope.selected.node == e.target) { return true; };
+                    if ($scope.resizing) { return true; };
 
                     var node = e.target;
 
