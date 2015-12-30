@@ -41,7 +41,7 @@ angular.module('dragAndDrop')
 	        //throw helper into the DOM
 	       	$rootScope.frameBody.append(this.active.helper);
 
-	        this._mouseDrag(e, true);	
+	        //this._mouseDrag(e, true);
 
 	        return true;
 	  	},
@@ -86,12 +86,16 @@ angular.module('dragAndDrop')
 
 	    	$rootScope.frameBody.removeClass('dragging');
 
-	    	$rootScope.$broadcast('builder.html.changed');
+			$rootScope.$broadcast('builder.html.changed');
 	  	},
 	  	_mouseCapture: function(e) {
-	  		this.active = $rootScope.selected;
+			if ($rootScope.selected.node)
+				$rootScope.$apply(function() {
+					$rootScope.selectNode(e.target);
+				});
+			this.active = $rootScope.selected;
 
-	  		if ( ! this.active.node || 
+	  		if ( ! this.active.node ||
 	  			this.active.node.className.indexOf('locked') > -1 ||
 	  			this.active.node.contenteditable ||
 	  			$rootScope.rowEditorOpen

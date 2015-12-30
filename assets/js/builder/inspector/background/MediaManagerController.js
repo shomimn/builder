@@ -50,6 +50,8 @@ angular.module('builder.inspector')
 		};
 
 		$scope.setAsSource = function() {
+			var w = $scope.selected.node.width;
+			var h = $scope.selected.node.height;
 			if ($scope.activeTab == 'my-images') {
 				for (var i = $scope.images.length - 1; i >= 0; i--) {
 					if ($scope.images[i].id == $scope.selectedImages[0]) {
@@ -68,6 +70,8 @@ angular.module('builder.inspector')
 
 			if (path) {
 				$scope.selected.node.src = path;
+				$scope.selected.node.width = w;
+				$scope.selected.node.height = h;
 			}
 		};
 

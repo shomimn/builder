@@ -127,20 +127,38 @@ angular.module('builder.inspector')
 				arrow.hide();
 			});
 
+
 			//on gradient or texture click in inspector position and show fly out pane
 			el.on('click', function(e) {
-				var offset = $(e.currentTarget).offset().top;
+
+				var bottomEdge = $('#viewport').height(),
+						rightEdge  = $('#viewport').width();
+
+
 				list.removeClass('hidden');
 				togglePresetCont(e.currentTarget.id);
-				arrow.css('top', offset+12).show();
 
-				var offsetTop = offset-(list.height()/2)+40;
+				var top  = e.pageY - $scope.frameDoc.body.scrollTop,
+						left = e.pageX,
+						listWidth = list.width(),
+						listHeight = list.height();
 
-				if (offsetTop < 1) {
-					offsetTop = 5;
+
+				//make sure menu doesn't go under bottom edge
+				if (bottomEdge < top + listHeight) {
+					top = e.pageY - listHeight + 39;
 				}
 
-				list.css('top', offsetTop);
+				//make sure menu doesn't go under right edge
+				if (rightEdge < left + $scope.frameOffset.left + listWidth) {
+					left = left - listWidth;
+				}
+
+				if (top < 0)
+					top += $scope.frameDoc.body.scrollTop;
+
+				list.css({ top: top, left: left});
+
 
 				//hide color picker container if exists
 				if ($scope.colorPickerCont) {

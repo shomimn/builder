@@ -92,9 +92,9 @@ angular.module('builder.elements')
             function(node, parent, classes, pClasses) {
                 if (node.className == 'dropdown-toggle' && $rootScope.selected.node == node) {
                     var toggle = node;
-                    //var menu = $(parent).find('.dropdown-menu');
+                    var menu = $(parent).find('.dropdown-menu');
                     var unbind = $rootScope.$on('element.reselected', function(event, element) {
-                        if (element == toggle)
+                        if (element == toggle || menu.find(element).length > 0)
                             return;
                         angular.element(parent).removeClass('open');
                         unbind();
@@ -105,7 +105,7 @@ angular.module('builder.elements')
             }
         ],
 
-        checkForSpecialCases: function(node, type) {
+        checkForSpecialCases: function(node) {
             if ( ! node ) { return false };
 
             //cache some needed node properties

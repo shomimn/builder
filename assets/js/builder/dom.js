@@ -293,14 +293,14 @@ angular.module('builder')
 			body = body.replace('contenteditable="true"', '');
 
 			if (includeJs) {
-				body += '<script src="assets/js/vendor/jquery.js"></script>';
-				body += '<script src="assets/js/vendor/bootstrap/bootstrap.min.js"></script>';
+				body += '<script src="' + $rootScope.baseUrl + '/assets/js/vendor/jquery.js"></script>';
+				body += '<script src="' + $rootScope.baseUrl + '/assets/js/vendor/bootstrap/bootstrap.min.js"></script>';
 
                 var pgForJs = pageForJs || page;
 
 				if (pgForJs && pgForJs.libraries) {
 					for (var i = 0; i < pgForJs.libraries.length; i++) {
-						body += '<script src="'+ pgForJs.libraries[i].path +'"></script>';
+						body += '<script src="' + $rootScope.baseUrl + '/' + pgForJs.libraries[i].path +'"></script>';
 					};
 				}
 
