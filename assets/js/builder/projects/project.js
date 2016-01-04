@@ -120,7 +120,9 @@ angular.module('builder.projects', [])
 			localStorage.set('activePage', page.name);
 
 			if ( ! noEvent) {
+				//console.log(settings.asd);
 				$rootScope.$broadcast('builder.page.changed', page);
+				//$($rootScope.frameDoc).find(".navbar-brand").html("lololo");
 			}
 		},
 

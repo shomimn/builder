@@ -177,7 +177,7 @@ angular.module('builder', ['ui.router', 'ngCookies', 'pascalprecht.translate', '
 				setTimeout(function() {
 					$rootScope.frameOffset = $rootScope.frame.offset();
 					$rootScope.frameWrapperHeight = $('#frame-wrapper').height();
-				}, 1000);	
+				}, 1000);
 			});
 		},
 

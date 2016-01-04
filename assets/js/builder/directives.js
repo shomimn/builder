@@ -23,7 +23,7 @@ angular.module('builder.directives', [])
     return {
    		restrict: 'A',
       	link: function($scope) {
-  			
+
   			$scope.$on('builder.dom.loaded', function() {
 	      		$scope.frameHead.append('<base href="'+$scope.baseUrl+'/">');
 	      		$scope.frameHead.append('<link id="main-sheet" rel="stylesheet" href="assets/css/bootstrap.min.css">');

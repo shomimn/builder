@@ -108,7 +108,7 @@ angular.module('builder')
                         $scope.hover.previous = $scope.hover.node;
 
                         var node = $scope.elementFromPoint(e.pageX, e.pageY - $scope.frameBody.scrollTop());
-                        
+
                         //hide hover box and bail if we're hovering over a selected node
                         if ($scope.selected.node && $scope.selected.node == node) {
                             return $scope.hoverBox.hide();
@@ -119,12 +119,12 @@ angular.module('builder')
                             $scope.hover.node = node;
 
                             $scope.hover.element = elements.match($scope.hover.node, 'hover', true);
-                            
+
                             //only reposition hover box during drag on webkit browsers
                             //as it will cause fairly significant lag on IE and Firefox
                             if ( ! $scope.dragging || $scope.isWebkit) {
                                 $scope.repositionBox('hover', $scope.hover.node, $scope.hover.element);
-                            }                      
+                            }
                         }
                     }
                 });
