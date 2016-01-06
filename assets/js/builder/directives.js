@@ -29,6 +29,7 @@ angular.module('builder.directives', [])
 	      		$scope.frameHead.append('<link id="main-sheet" rel="stylesheet" href="assets/css/bootstrap.min.css">');
 	      		$scope.frameHead.append('<link rel="stylesheet" href="assets/css/iframe.css">');   		
 	      		$scope.frameHead.append('<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">');
+				//$scope.frameHead.append('<script src="assets/js/vendor/angular.min.js"></script>');
 	      		$rootScope.customCss = $('<style id="editor-css"></style>').appendTo($scope.frameHead);
 
 	      		$($scope.frameDoc).on('scroll', function() {
@@ -220,20 +221,20 @@ angular.module('builder.directives', [])
 			//initiate slider
 			el.slider({
 				min: 0,
-		    	step: 1,
-		    	max: attrs.max ? attrs.max : 100,
-		      	range: "min",
-		      	animate: true,
-		    	slide: function(e, ui) {
-		    		if (attrs.blRangeSlider.indexOf('props') > -1) {
-		    			$scope.$apply(function() { model.assign($scope, ui.value); });
-		    		} else {
-		    			inspector.applySliderValue(attrs.blRangeSlider, ui.value, 'px');	
-		    		}
-		    		
-		    	}
-		    });
-			
+				step: 1,
+				max: attrs.max ? attrs.max : 100,
+				range: "min",
+				animate: true,
+				slide: function(e, ui) {
+					if (attrs.blRangeSlider.indexOf('props') > -1) {
+						$scope.$apply(function() { model.assign($scope, ui.value); });
+					} else {
+						inspector.applySliderValue(attrs.blRangeSlider, ui.value, 'px');
+					}
+
+				}
+			});
+
 			//reset slider when user selects a different DOM element or different
 			//style directions (top, bot, left, right)
 			$scope.$on('element.reselected', function() { el.slider('value', 0) });
@@ -248,7 +249,7 @@ angular.module('builder.directives', [])
 				$scope.selectBox.add($scope.hoverBox).hide();
 			});
 
-			el.on("slidestop", function(event, ui) {			
+			el.on("slidestop", function(event, ui) {
 				$scope.$broadcast(attrs.blRangeSlider.replace(/[A-Z][a-z]+/g, '')+'.slidestop', attrs.blRangeSlider);
 				$scope.repositionBox('select');
 				inspector.sliding = false;

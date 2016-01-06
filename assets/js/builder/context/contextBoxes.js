@@ -51,6 +51,13 @@ angular.module('builder')
 
                     var node = e.target;
 
+                    //var iframe = node.querySelector("iframe");
+                    //if (iframe && node.children[0] == iframe)
+                    //{
+                    //    console.log("iframe");
+                    //    node = iframe;
+                    //}
+
                     if (node.hasAttribute('contenteditable') || node.parentNode.hasAttribute('contenteditable')) {
                         return true;
                     }
@@ -109,6 +116,7 @@ angular.module('builder')
 
                         var node = $scope.elementFromPoint(e.pageX, e.pageY - $scope.frameBody.scrollTop());
 
+
                         //hide hover box and bail if we're hovering over a selected node
                         if ($scope.selected.node && $scope.selected.node == node) {
                             return $scope.hoverBox.hide();
@@ -117,6 +125,13 @@ angular.module('builder')
                         //make sure we don't select resize handles
                         if (node.className.indexOf('ui-resizable-handle') == -1) {
                             $scope.hover.node = node;
+
+                            var iframe = $scope.hover.node.querySelector("iframe");
+                            if (iframe && $scope.hover.node.children[0] == iframe)
+                            {
+                                console.log("iframe");
+                                $scope.hover.node = iframe;
+                            }
 
                             $scope.hover.element = elements.match($scope.hover.node, 'hover', true);
 

@@ -108,13 +108,17 @@ baseBuilderElements.push({
 	name: 'google map',
 	frameworks: ['base'],
 	nodes: ['iframe'],
-	html: '<iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>',
+	html: '<div style="width:400px; height:400px"><iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="elements/map.html?lat=0&lng=0"></iframe></div>',
+	//html: '<div google-map lat="0" lng="0"></div>',
 	types: ['flow'],
 	validChildren: ['flow'],
 	category: 'components',
 	previewScale: '0.5',
 	scaleDragPreview: false,
-	icon: 'google'
+	icon: 'google',
+	onEdit: function ($scope) {
+		$($scope.selected.node).attr('src', "elements/map.html?lat=43.3&lng=21.9");
+	}
 });
 
 baseBuilderElements.push({
