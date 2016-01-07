@@ -58,6 +58,13 @@ angular.module('builder', ['ui.router', 'ngCookies', 'pascalprecht.translate', '
 	$rootScope.selectedLocale = selectedLocale;
 	$rootScope.baseUrl        = baseUrl;
 	$rootScope.registrationEnabled = typeof settings.enable_registration !== 'undefined' ? JSON.parse(settings.enable_registration) : true;
+	$rootScope.map = {
+		lat: 0,
+		lng: 0,
+		zoom: 8,
+		apply: function() { $rootScope.latLngEditor.apply(); },
+		hide: function() { $rootScope.latLngEditor.addClass('hidden'); }
+	};
 
 	if ($rootScope.isDemo) {
 		$http.get('time-until-reset').success(function(data) {			
@@ -169,6 +176,7 @@ angular.module('builder', ['ui.router', 'ngCookies', 'pascalprecht.translate', '
 			$rootScope.contextMenuOpen= false;
 			$rootScope.activePanel    = 'export';
 			$rootScope.flyoutOpen     = false;
+			$rootScope.latLngEditor   = $("#latLngEditor");
 			
 			//set the iframe offset so we can calculate nodes positions
 			//during drag and drop or sorting correctly		

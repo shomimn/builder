@@ -108,7 +108,7 @@ baseBuilderElements.push({
 	name: 'google map',
 	frameworks: ['base'],
 	nodes: ['iframe'],
-	html: '<div style="width:400px; height:400px"><iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="elements/map.html?lat=0&lng=0"></iframe></div>',
+	html: '<div style="width:400px; height:400px"><iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="elements/map.html?lat={{$root.map.lat}}&lng={{$root.map.lng}}&zoom={{$root.map.zoom}}"></iframe></div>',
 	//html: '<div google-map lat="0" lng="0"></div>',
 	types: ['flow'],
 	validChildren: ['flow'],
@@ -188,7 +188,47 @@ baseBuilderElements.push({
  	category: 'layout',
  	dragHelper: true,
  	previewScale: '0.7',
-    icon: 'blank'
+    icon: 'blank',
+	onEdit: function($scope) {
+		var iframe = $scope.selected.node.querySelector("iframe");
+		if (iframe && $scope.selected.node.children[0] == iframe)
+		{
+			//$(iframe).attr("src", "elements/map.html?lat=" + $scope.map.lat + "&lng=" + $scope.map.lng);
+
+			$scope.latLngEditor.removeClass('hidden');
+
+			var left = 0, top = 0,
+					pos = $scope.selected.node.getBoundingClientRect(),
+					rightEdge = $('#viewport').width(),
+					bottomEdge = $('#viewport').height(),
+					leftEdge = $('#elements-container')[0].getBoundingClientRect(),
+					linkerRight = pos.left + $scope.frameOffset.left + $scope.linker.width(),
+					linkerTop  = pos.top + $scope.frameOffset.top + $scope.linker.height();
+
+			//make sure linker doesn't go over right sidebar
+			if (rightEdge.left < linkerRight) {
+				left = pos.left - (linkerRight - rightEdge.left) - 40;
+			} else {
+				left = pos.left - ($scope.linker.width() - $scope.selected.node.offsetWidth)/2;
+			}
+
+			//position linker either above or below link dom element depending on space available
+			if (bottomEdge < linkerTop) {
+				top = pos.top - $scope.selected.node.offsetHeight - $scope.linker.height() - 10;
+			} else {
+				top = pos.top + $scope.selected.node.offsetHeight;
+			}
+
+			//make sure editor doesn't go under the left sidebar
+			if (left < leftEdge.left) {
+				left = leftEdge.left + 30;
+			}
+
+			$scope.latLngEditor.apply = function() { $(iframe).attr("src", "elements/map.html?lat=" + $scope.map.lat + "&lng=" + $scope.map.lng + "&zoom=" + $scope.map.zoom); };
+
+			$scope.latLngEditor.css({ top: top, left: left});
+		}
+	}
 });
 
 baseBuilderElements.push({

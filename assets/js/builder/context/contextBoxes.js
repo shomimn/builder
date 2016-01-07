@@ -51,7 +51,9 @@ angular.module('builder')
 
                     var node = e.target;
 
-                    //var iframe = node.querySelector("iframe");
+                    var iframe = node.querySelector("iframe");
+                    $scope.selected.isMap = iframe && node.children[0] == iframe;
+
                     //if (iframe && node.children[0] == iframe)
                     //{
                     //    console.log("iframe");
@@ -78,6 +80,7 @@ angular.module('builder')
 
                     //hide linker
                     $scope.linker.addClass('hidden');
+                    $scope.latLngEditor.addClass('hidden');
 
                     //hide colorpicker when clicked outside it and if it exists
                     if ($scope.colorPickerCont) {

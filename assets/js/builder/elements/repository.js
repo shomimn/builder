@@ -228,6 +228,13 @@ angular.module('builder.elements')
             //merge defaults and passed in element config objects
             var el = angular.extend({}, defaults, config);
 
+            if (el.name == 'google map')
+            {
+                el.html = el.html.replace('{{$root.map.lat}}', $rootScope.map.lat);
+                el.html = el.html.replace('{{$root.map.lng}}', $rootScope.map.lng);
+                el.html = el.html.replace('{{$root.map.zoom}}', $rootScope.map.zoom);
+            }
+
             //we'll need both snake case and camel case names for the element
             el.camelName = config.name.toCamelCase();
             el.snakeName = config.name.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});

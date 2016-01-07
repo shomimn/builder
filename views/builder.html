@@ -700,14 +700,43 @@
                         </li>
                     </ul>
                 </div>
+                <div id="latLngEditor" class="hidden">
+                    <h3>Marker Options <i ng-click="$root.map.hide()" class="fa pull-right fa-times"></i></h3>
+                    <ul>
+                        <li>
+                            <div class="pull-right">
+                                <div class="title">{{ 'Latitude' | translate }}</div>
+                                <div class="body">
+                                    <input class="form-control" ng-model="$root.map.lat" ng-change="$root.map.apply()" type="text">
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="pull-right">
+                                <div class="title">{{ 'Longitude' | translate }}</div>
+                                <div class="body">
+                                    <input class="form-control" ng-model="$root.map.lng" ng-change="$root.map.apply()" type="text">
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="pull-right">
+                                <div class="title">{{ 'Zoom' | translate }}</div>
+                                <div class="body">
+                                    <input class="form-control" ng-model="$root.map.zoom" ng-change="$root.map.apply()" type="number">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div bl-hover-box></div>
                 <div id="select-box" ng-hide="dragging" bl-columns-resizable>
                     <div id="select-box-actions" bl-context-box-actions ng-hide="rowEditorOpen">
                         <span class="element-tag"></span>
                         <i class="icon icon-right-outline" data-action="link" ng-show="selected.element.name == 'link'" bl-toggle-follow-link></i>
                         <i id="image" class="icon icon-picture" data-action="picture" ng-if="selected.isImage" open-media-manager="src"></i>
-                        <i id="image" class="icon icon-picture" data-action="picture" ng-if="!selected.isImage"bl-show-img-container></i>
-                        <i class="icon icon-pencil" data-action="edit"></i>
+                        <i id="image" class="icon icon-picture" data-action="picture" ng-if="!selected.isImage && !selected.isMap"bl-show-img-container></i>
+                        <i class="icon" ng-class="selected.isMap ? 'icon-location' : 'icon-pencil'" data-action="edit"></i>
                         <i class="icon" ng-class="selected.locked ? 'icon-lock' : 'icon-lock-open'" bl-toggle-element-lock data-action="lock"></i>
                         <i class="icon icon-trash" data-action="delete"></i>
                     </div>
