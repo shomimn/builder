@@ -162,25 +162,4 @@ angular.module('builder').controller('BuilderController', ['$scope', '$rootScope
             $scope.selecting = false;
         }, 200);
     };
-}])
-
-.directive('googleMap', ['$compile', "$sce", function($compile, $sce) {
-
-    return {
-        restrict: 'A',
-        scope: {},
-        compile: function($scope, element, attrs) {
-            var lat = attrs.lat || 0;
-            var lng = attrs.lng || 0;
-
-            //var html = '<iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" ' +
-            //    'src="/architect/elements/map.html?lat=0&lng=0"></iframe>';
-            //var html = $sce.trustAsHtml(html);
-            var html = $sce.trustAsHtml("<p>asd</p>");
-
-            var el = $compile(html)($scope);
-
-            element.replaceWith(el);
-        }
-    };
 }]);

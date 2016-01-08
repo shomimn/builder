@@ -193,8 +193,6 @@ baseBuilderElements.push({
 		var iframe = $scope.selected.node.querySelector("iframe");
 		if (iframe && $scope.selected.node.children[0] == iframe)
 		{
-			//$(iframe).attr("src", "elements/map.html?lat=" + $scope.map.lat + "&lng=" + $scope.map.lng);
-
 			$scope.latLngEditor.removeClass('hidden');
 
 			var left = 0, top = 0,
@@ -202,19 +200,18 @@ baseBuilderElements.push({
 					rightEdge = $('#viewport').width(),
 					bottomEdge = $('#viewport').height(),
 					leftEdge = $('#elements-container')[0].getBoundingClientRect(),
-					linkerRight = pos.left + $scope.frameOffset.left + $scope.linker.width(),
-					linkerTop  = pos.top + $scope.frameOffset.top + $scope.linker.height();
+					editorRight = pos.left + $scope.frameOffset.left + $scope.latLngEditor.width(),
+					editorBottom  = pos.bottom + $scope.frameOffset.top + $scope.latLngEditor.height();
 
-			//make sure linker doesn't go over right sidebar
-			if (rightEdge.left < linkerRight) {
-				left = pos.left - (linkerRight - rightEdge.left) - 40;
+			//make sure editor doesn't go over right sidebar
+			if (rightEdge < editorRight) {
+				left = pos.left - (editorRight - rightEdge) - 40;
 			} else {
-				left = pos.left - ($scope.linker.width() - $scope.selected.node.offsetWidth)/2;
+				left = pos.left - ($scope.latLngEditor.width() - $scope.selected.node.offsetWidth)/2;
 			}
 
-			//position linker either above or below link dom element depending on space available
-			if (bottomEdge < linkerTop) {
-				top = pos.top - $scope.selected.node.offsetHeight - $scope.linker.height() - 10;
+			if (bottomEdge < editorBottom) {
+				top = pos.bottom - $scope.selected.node.offsetHeight - $scope.latLngEditor.height() - 10;
 			} else {
 				top = pos.top + $scope.selected.node.offsetHeight;
 			}

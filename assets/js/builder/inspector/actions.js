@@ -35,19 +35,27 @@ angular.module('builder.inspector')
 				$scope.$apply(function() {
 
 					var frame = $rootScope.frame[0];
-					var href =  $($scope.selected.node).attr('href');
-					var i = href.indexOf('html');
-					if (i > -1)
+					var href = $($scope.selected.node).attr('href');
+
+					if (!href && $scope.selected.node.dataset.target && $scope.selected.node.dataset.toggle)
 					{
-						var page = href.substring(0, i - 1);
-						project.changePage(page);
+						$($rootScope.frameDoc.querySelector($scope.selected.node.dataset.target)).collapse('toggle');
 					}
 					else
 					{
-						var innerDoc = frame.contentDocument || frame.contentWindow.document;
-						var element = innerDoc.getElementById(href.substring(1));
-						if (element)
-							element.scrollIntoView();
+						var i = href.indexOf('html');
+						if (i > -1)
+						{
+							var page = href.substring(0, i - 1);
+							project.changePage(page);
+						}
+						else
+						{
+							var innerDoc = frame.contentDocument || frame.contentWindow.document;
+							var element = innerDoc.getElementById(href.substring(1));
+							if (element)
+								element.scrollIntoView();
+						}
 					}
 				});
 

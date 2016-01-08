@@ -1,0 +1,41 @@
+<div class="row">
+            <div class="col-md-12">
+                <h2>Shopping Cart</h2>
+                <form>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in cart.products">
+                                <td>{{item.product.name}}</td>
+
+                                <td>
+                                    <div class="col-md-2">
+                                        <input id="quantity-1" name="quantity-1" type="text" class="col-md-2 form-control" ng-model="item.quantity" />
+                                    </div>
+                                </td>
+                                <td>{{item.product.price}}</td>
+                                <td>{{item.product.price * item.quantity}}</td>
+                                <td>
+                                    <button class="btn btn-default" ng-click="remove(item)"><i class="icon-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+
+                <dl class="dl-horizontal pull-right">
+                    <dt>Total:</dt>
+                    <dd>${{cart.total()}}</dd>
+                </dl>
+                <div class="clearfix"></div>
+                <a class="btn btn-success pull-right" ng-click="checkout()">Check out</a>
+                <a class="btn btn-primary" ng-click="continue()">Continue Shopping</a>
+            </div>
+        </div>

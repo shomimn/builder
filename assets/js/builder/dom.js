@@ -206,7 +206,11 @@ angular.module('builder')
 		 * @return string
 		 */
 		getHtml: function(page, includeCss, includeJs, pageForJs) {
-			
+
+			var uiView = $rootScope.frameDoc.querySelector("div[ui-view]");
+			if (uiView && uiView.childElementCount > 0 && !includeCss && !includeJs)
+				return uiView.innerHTML;
+
 			var head = '<head>',
 				meta = page ? page : this,
 				assets = '', body = '', libraries = [];
@@ -504,6 +508,10 @@ angular.module('builder')
 			});
 
 			$rootScope.repositionBox('select');
+		},
+
+		loadPartial: function(view) {
+			$rootScope.frameDoc.querySelector("div[ui-view]").innerHTML = view;
 		}
 	};
 

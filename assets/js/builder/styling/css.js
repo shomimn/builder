@@ -221,7 +221,7 @@ angular.module('builder.styling')
 			} else {
 				selector = $rootScope.selected.selector;
 			}
-			
+
 			//if style is an object then wel'll need to loop
 			//trough it and call this method for each property
 			if (angular.isObject(style)) {
@@ -234,31 +234,33 @@ angular.module('builder.styling')
 				value = this.objectToString(value);
 			}
 
+			$($rootScope.frameDoc).find(selector).css(style, value);
+
 			//cache the css rules object for this selector
-			var ruleStack = this.rules[selector];
-
-			if (ruleStack) {
-				//add new value to cached cssRule object, this
-				//will instantly reflect new css style in the DOM
-			 	ruleStack._cssObject.style[style.toCamelCase()] = value;			 	
-				
-			 	//store new value in our custom css object
-			 	ruleStack[style.toDashedCase()] = value;
-			} else {
-				//create and cache css rules object for this selector
-				var ruleStack = this.rules[selector] = {};
-
-				//add new style to our custom css object
-				ruleStack[style.toDashedCase()] = value;
-
-				//insert new style as a rule into iframe styleSheets object
-				//so it's reflected in the DOM instantly		
-				this.sheet.insertRule(selector+'{'+style+':'+value+';}', 0);
-				
-				//cache the cssRule object so we can modify it later instead
-				//of creating a ton of new rules and eating up the memory
-				ruleStack._cssObject = this.sheet.cssRules[0];
-			}
+			//var ruleStack = this.rules[selector];
+            //
+			//if (ruleStack) {
+			//	//add new value to cached cssRule object, this
+			//	//will instantly reflect new css style in the DOM
+			// 	ruleStack._cssObject.style[style.toCamelCase()] = value;
+			//
+			// 	//store new value in our custom css object
+			// 	ruleStack[style.toDashedCase()] = value;
+			//} else {
+			//	//create and cache css rules object for this selector
+			//	var ruleStack = this.rules[selector] = {};
+            //
+			//	//add new style to our custom css object
+			//	ruleStack[style.toDashedCase()] = value;
+            //
+			//	//insert new style as a rule into iframe styleSheets object
+			//	//so it's reflected in the DOM instantly
+			//	this.sheet.insertRule(selector+'{'+style+':'+value+';}', 0);
+            //
+			//	//cache the cssRule object so we can modify it later instead
+			//	//of creating a ton of new rules and eating up the memory
+			//	ruleStack._cssObject = this.sheet.cssRules[0];
+			//}
 
 			if ( ! noEvent) {
 				$rootScope.$broadcast('builder.css.changed');

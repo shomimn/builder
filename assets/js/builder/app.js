@@ -151,7 +151,7 @@ angular.module('builder', ['ui.router', 'ngCookies', 'pascalprecht.translate', '
 				$rootScope.frameWindow    = $rootScope.frame.get(0).contentWindow;
 				$rootScope.frameDoc       = $rootScope.frameWindow.document;
 				$rootScope.frameBody      = $($rootScope.frameDoc).find('body');
-				$rootScope.frameHead      = $($rootScope.frameDoc).find('head');				
+				$rootScope.frameHead      = $($rootScope.frameDoc).find('head');
 				$rootScope.$broadcast('builder.dom.loaded');
 			});
 			
@@ -176,8 +176,8 @@ angular.module('builder', ['ui.router', 'ngCookies', 'pascalprecht.translate', '
 			$rootScope.contextMenuOpen= false;
 			$rootScope.activePanel    = 'export';
 			$rootScope.flyoutOpen     = false;
-			$rootScope.latLngEditor   = $("#latLngEditor");
-			
+			$rootScope.latLngEditor   = $('#latLngEditor');
+
 			//set the iframe offset so we can calculate nodes positions
 			//during drag and drop or sorting correctly		
 			$rootScope.frameOffset = {top: 89, left: 234};

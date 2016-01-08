@@ -105,15 +105,25 @@ angular.module('builder.projects', [])
 				page = project.active.pages[0];
 			}
 
-			//load the page
-			dom.loadHtml(page.html);
-			css.loadCss(page.css);
-			themes.loadTheme(page.theme);
-			dom.setMeta({
-				title: page.title,
-				tags: page.tags,
-				description: page.description,
-			});
+			var libs = page.libraries.filter(function(lib) { return lib.name  == "Angular"; });
+			var isAngular = libs.length > 0;
+
+			if (page.name == "index" || libs.length == 0)
+			{
+				//load the page
+				dom.loadHtml(page.html);
+				css.loadCss(page.css);
+				themes.loadTheme(page.theme);
+				dom.setMeta({
+					title: page.title,
+					tags: page.tags,
+					description: page.description,
+				});
+			}
+			else
+			{
+				dom.loadPartial(page.html);
+			}
 
 			project.activePage = page;
 

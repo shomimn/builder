@@ -1,0 +1,66 @@
+<div class="row">
+            <div class="col-md-3">
+                <div class="well">
+
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                            <i class="icon-shopping-cart"></i>
+                            {{cart.size()}} - ${{cart.total()}}
+                            <b class="caret"></b></a>
+                        </a>
+                        <div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
+                            <p ng-repeat="product in cart.products">{{product.product.name}} x {{product.quantity}}<span class="pull-right">${{product.product.price * product.quantity}}</span></p>
+                            <a class="btn btn-primary" ng-click="openCart()">Cart</a> <a class="btn btn-success" ng-click="checkout()">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="jumbotron">
+                    <h1 class="">Special Offer</h1>
+                    <p class="">here is the best offer of the month! Do not loose it!</p>
+                    <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4" ng-repeat="product in products track by $index">
+                        <div class="thumbnail">
+                            <img src="{{product.img}}" alt="">
+                            <div class="caption">
+                                <h4>{{product.name}}</h4>
+                                <p>${{product.price}}</p>
+                                <a class="btn btn-primary" ng-click="itemClicked(product)">View</a>
+                                <button class="btn btn-success" ng-click="cart.add(product, 1)">Add to Cart</button>
+                                <button class="btn btn-default btn-sm" ng-click="edit(product)" ng-if="$root.isAdmin"><i class="icon icon-edit"></i></button>
+                                <button class="btn btn-default btn-sm" ng-if="$root.isAdmin" ng-click="delete(product)"><i class="icon icon-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" ng-if="$root.isAdmin">
+                        <div class="thumbnail">
+                            <img src="{{product.img}}" alt="">
+                            <div class="caption">
+                                <h4>New Product</h4>
+                                <a class="btn btn-primary" ng-click="edit({})">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+				<div class="pagination">
+					<ul>
+						<li class"disabled"><span>Prev</span></li>
+						<li class"disabled"><span>1</span></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">Next</a></li>
+					</ul>
+				</div>
+-->
+
+            </div>
+        </div>
