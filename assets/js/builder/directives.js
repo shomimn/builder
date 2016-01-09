@@ -284,6 +284,7 @@ angular.module('builder.directives', [])
                         console.log('.' + $scope.openedNavEl[0].dataset.name + 'Toggle');
                         $('.' + $scope.openedNavEl[0].dataset.name + 'Toggle').css('height', 0);
                         $scope.openedNavAttrs.expanded = !$scope.openedNavAttrs.expanded;
+						$scope.openedNavEl[0].className = $scope.openedNavEl[0].className.replace( /(?:^|\s)main_navbar_element_selected(?!\S)/g , '' );
                     }
 				}
 				if(element[0].dataset.name == 'settings')
@@ -304,10 +305,10 @@ angular.module('builder.directives', [])
 					    target.style.height = y + 'px';
                     else
                         target.style.height = '200px';
-					//if(y > 100)
-					//	target.style.overflow = 'auto';
+					element[0].className += 'main_navbar_element_selected';
 				} else {
 					target.style.height = '0px';
+					element[0].className = element[0].className.replace( /(?:^|\s)main_navbar_element_selected(?!\S)/g , '' );
 				}
 				attrs.expanded = !attrs.expanded;
 			});

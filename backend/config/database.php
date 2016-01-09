@@ -3,7 +3,7 @@
 return array(
 	'driver'    => 'mysql',
 	'host'      => 'localhost',
-	'database'  => 'mtdb1',
+	'database'  => 'architect',
 	'username'  => 'root',
 	'password'  => '',
 	'charset'   => 'utf8',
