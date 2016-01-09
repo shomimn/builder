@@ -123,9 +123,11 @@ angular.module('builder.styling')
 		},
 
 		init: function() {
-			$http.get('pr-themes/').success(function(data) {
+			$http.get('pr-themes/').success(function(data)
+			{
+				var asd = [];
 				for (var i = data.length - 1; i >= 0; i--) {
-					themes.all.push({
+					asd.push({
 						name: data[i].name,
 						image: data[i].thumbnail,
 						description: data[i].description,
@@ -137,8 +139,9 @@ angular.module('builder.styling')
 						id: data[i].id,
 						customLess: data[i]['custom_less'],
 						vars: data[i]['modified_vars']
-					});			
+					});
 				}
+				themes.all = asd;
 			});
 		}
 	};

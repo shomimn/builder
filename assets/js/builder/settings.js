@@ -24,25 +24,25 @@ angular.module('builder.settings', [])
 
 		all: {
             contentBoxes: [
-                {
-                    name: 'enableHoverBox',
-                    value: true,
-                    category: 'contextBoxes',
-                    description: 'Show/Hide box that appears when hovering over elements in the builder.',
-                },
-                {
-                    name: 'enableSelectBox',
-                    value: true,
-                    category: 'contextBoxes',
-                    description: 'Show/Hide box that appears when clicking an element in the builder.',
-                },
-                {
-                    name: 'showWidthAndHeightHandles',
-                    value: true,
-                    category: 'contextBoxes',
-                    description: 'Show/Hide circle handles used to change elements width and height by dragging them.',
-                }
-            ],
+				{
+					name: 'enableHoverBox',
+					value: true,
+					category: 'contextBoxes',
+					description: 'Show/Hide box that appears when hovering over elements in the builder.',
+				},
+				{
+					name: 'enableSelectBox',
+					value: true,
+					category: 'contextBoxes',
+					description: 'Show/Hide box that appears when clicking an element in the builder.',
+				},
+				{
+					name: 'showWidthAndHeightHandles',
+					value: true,
+					category: 'contextBoxes',
+					description: 'Show/Hide circle handles used to change elements width and height by dragging them.',
+				}
+			],
             autoSave: [
                 {
                     name: 'enableAutoSave',
@@ -57,14 +57,14 @@ angular.module('builder.settings', [])
                     description: 'How long (in miliseconds) to wait before auto saving after changes are made.'
                 }
             ],
-            panels: [
-                {
-                    name: 'showElementPreview',
-                    value: false,
-                    category: 'Panels',
-                    description: 'Should element preview container be visible in elements panel.'
-                }
-            ],
+            //panels: [
+            //    {
+            //        name: 'showElementPreview',
+            //        value: false,
+            //        category: 'Panels',
+            //        description: 'Should element preview container be visible in elements panel.'
+            //    }
+            //],
             elements: [
                 {
                     name: 'enableFreeElementDragging',

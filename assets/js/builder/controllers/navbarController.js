@@ -3,7 +3,8 @@ angular.module('builder').factory('panels', function() {
         active: 'elements',
         open: function(name) {
             if (this.active === name) return;
-            var top = $('.main-nav [data-name="'+name+'"]').offset().top;
+            //var top = $('.main-nav [data-name="'+name+'"]').offset().top;
+			var top = 0;
             $('.selected-tab').css('transform', 'translateY('+(top-121)+'px)');
             this.active = name;
         }

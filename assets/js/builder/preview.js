@@ -32,6 +32,8 @@ angular.module('builder').factory('preview', ['$rootScope', 'dom', 'project', fu
             self.iframe.removeClass('hidden');
             self.builder.css('right', -self.builder.width());
             self.closer.removeClass('hidden');
+
+            $('#navBar').css('display', 'none');
         },
 
         /**
@@ -53,6 +55,8 @@ angular.module('builder').factory('preview', ['$rootScope', 'dom', 'project', fu
                     self.doc.close();
                 }
             }, 300);
+
+            $('#navBar').css('display', 'block');
         },
 
         /**

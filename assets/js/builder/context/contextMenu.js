@@ -68,7 +68,8 @@ angular.module('undoManager')
                     }
 
 					var top  = e.pageY - $scope.frameDoc.body.scrollTop,
-						left = e.pageX + 10 + $scope.frameOffset.left,
+						//left = e.pageX + 10 + $scope.frameOffset.left,
+					 	left = e.pageX,
 						menuWidth = menu.width(),
 						menuHeight = menu.height();
 
@@ -79,7 +80,7 @@ angular.module('undoManager')
                     }
 
                     //make sure menu doesn't go under right edge
-                    if (rightEdge < left + $scope.frameOffset.left + menuWidth) {
+                    if (rightEdge < left + menuWidth) {
                         left = left - menuWidth;
                     }
 

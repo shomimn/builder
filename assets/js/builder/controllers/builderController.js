@@ -74,7 +74,8 @@ angular.module('builder').controller('BuilderController', ['$scope', '$rootScope
         } else {
             $scope[name+'Box'].css({
                 top: rect.top,
-                left: rect.left - 7 + $scope.frameOffset.left - $scope.elemsContWidth,
+                //left: rect.left - 7 + $scope.frameOffset.left - $scope.elemsContWidth,
+                left: rect.left-7,
                 height: rect.height,
                 width: rect.width
             }).show();
