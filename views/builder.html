@@ -2,15 +2,16 @@
     <section ng-controller="PagesController">
         <div>
             <ol class="element-path">
+                <li id="breadcrumbs"><span>breadcrumbs</span></li>
                 <li ng-repeat="el in selected.path" ng-class="{ active: $last }" ng-click="selectNode($index)"><span class="name">{{ el.name }}</span> <i class="icon icon-angle-right"></i></li>
             </ol>
         </div>
         <nav class="navbar navbar-default main_navbar_border">
             <div class="container-fluid">
                 <div>
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav main_navbar">
                         <li class="active"><a ui-sref="dashboard" bl-tooltip="dashboard"><i class="icon icon-left-open"></i></a></li>
-                        <li><a href="" data-name="pages" slide-toggle="#nav-pages"><i class="icon icon-docs"></i><span>{{:: 'pages' | translate }}</span></a></li>
+                        <li><a href="" id="nav_pages" data-name="pages" slide-toggle="#nav-pages"><i class="icon icon-docs"></i><span>{{:: 'pages' | translate }}</span></a></li>
                         <li><a href="" data-name="elements" slide-toggle="#nav-elements"><i class="icon icon-puzzle-outline"></i><span>{{:: 'elements' | translate }}</span></a></li>
                         <li><a href="" data-name="design"   slide-toggle=".nav-themes"><i class="icon icon-brush-1"></i>Design</a></li>
                         <li><a href="" data-toggle="modal" data-target="#myModalSettings"><i class="icon icon-cog-outline"></i><span>{{:: 'settings' | translate }}</span></a></li>
@@ -27,15 +28,13 @@
         </nav>
         <div id="elements-container" ng-controller="NavbarController">
             <div id="nav-pages" class="slideable pagesToggle" ng-class="{ open: panels.active === 'pages' }" data-name="pages" bl-pretty-scrollbar>
-                <nav class="navbar navbar-inverse">
+                <nav class="navbar navbar-default" style="margin-bottom: 5px">
                     <div class="container-fluid">
                         <div>
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav main_navbar">
                                 <li class="active"><a href="" ng-click="createNewPage()" bl-tooltip="newPage"><i class="icon icon-doc-add"></i></a></li>
-                                <li>
-                                    <a href=""><li ng-repeat="page in project.active.pages track by $index" ng-click="project.changePage(page.name)" ng-class="{active: page.name == project.activePage.name}">
-                                        <span class="name">{{ page.name }}</span></li>
-                                    </a>
+                                <li ng-repeat="page in project.active.pages track by $index" ng-click="project.changePage(page.name)" ng-class="{active: page.name == project.activePage.name}">
+                                    <a href=""><span class="name">{{ page.name }}</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -53,11 +52,11 @@
                         <div class="col-md-2">
                             <input placeholder="page title" type="text" class="form-control" ng-model="project.activePage.title" id="page-title">
                         </div>
-                        <div class="col-md-2 col-md-offset-4">
-                            <a ng-click="savePage()" bl-tooltip="savePage"><i class="icon icon-floppy-1"></i></a>
-                            <a bl-tooltip="deletePage" ng-disabled="project.activePage.name.toLowerCase() === 'index'" ng-click="deletePage()"><i class="icon icon-trash"></i></a>
-                            <a ng-click="openPanel('export')" bl-tooltip="export" placement="top"><i class="icon icon-export"></i>Export</a>
-                            <a bl-tooltip="copyPage" ng-click="copyPage()"><i class="icon icon-docs-1"></i></a>
+                        <div class="col-md-3 col-md-offset-3">
+                            <button class="btn btn-default rounded_borders" ng-click="savePage()" ><i class="icon icon-floppy-1"></i></button>
+                            <button class="btn btn-default rounded_borders" ng-click="deletePage()" ng-disabled="project.activePage.name.toLowerCase() === 'index'"><i class="icon icon-trash"></i></button>
+                            <button class="btn btn-default rounded_borders" ng-click="openPanel('export')" ><i class="icon icon-export"></i>Export</button>
+                            <button class="btn btn-default rounded_borders" ng-click="copyPage()" ><i class="icon icon-docs-1"></i></button>
                         </div>
                     </div>
                 </div>
@@ -73,9 +72,9 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <div>
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav main_navbar">
                                 <li><a data-toggle="modal" data-target="#myModalThemes">Themes</a></li>
-                                <li><a class="btn btn-primary" ng-click="openPanel('templates')">Templates</a></li>
+                                <li><a ng-click="openPanel('templates')">Templates</a></li>
                             </ul>
                         </div>
                     </div>

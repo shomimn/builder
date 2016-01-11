@@ -113,6 +113,8 @@ angular.module('builder').controller('BuilderController', ['$scope', '$rootScope
     $rootScope.selectNode = function(node) {
         if ($scope.rowEditorOpen) { return true; }
 
+        $('#breadcrumbs').css('display', 'none');
+
         $scope.selecting = true;
 
         $scope.selected.previous = $scope.selected.node;
