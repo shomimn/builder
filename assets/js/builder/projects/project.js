@@ -3,7 +3,16 @@
 angular.module('builder.projects', [])
 
 .factory('project', ['$rootScope', '$http', '$state', '$q', 'css', 'dom', 'settings', 'themes', 'localStorage', function($rootScope, $http, $state, $q, css, dom, settings, themes, localStorage) {
-	
+
+	var wizard = {
+		sitename: [".navbar-brand","h1"],
+		facebook: [".fa-facebook",".icon-facebook","a:contains('Facebook')"],
+		twitter: [".fa-twitter",".icon-twitter"],
+		googleplus: [".fa-google-plus",".icon-google-plus"],
+		phone: [".wizard-phone"],
+		fax: [".wizard-fax"],
+		email: [".wizard-email"]
+	};
 	var project = {
 
 		/**
@@ -130,9 +139,56 @@ angular.module('builder.projects', [])
 			localStorage.set('activePage', page.name);
 
 			if ( ! noEvent) {
-				//console.log(settings.asd);
 				$rootScope.$broadcast('builder.page.changed', page);
-				//$($rootScope.frameDoc).find(".navbar-brand").html("lololo");
+				if(settings.wizard !== undefined){
+					var keys = Object.keys(settings.wizard);
+
+					for(var i = 0; i < keys.length; i++){
+
+
+						for(var j =0; j < wizard[keys[i]].length; j++)
+						{
+
+							var tmp = $($rootScope.frameDoc).find(wizard[keys[i]][j])
+
+							if(tmp !== undefined) {
+								if (keys[i] == "facebook" || keys[i] == "twitter" || keys[i] == "googleplus")
+								{
+									if(tmp.is("a"))
+										tmp.attr("href",settings.wizard[keys[i]]);
+									if(tmp.parent().is("a"))
+										tmp.parent().attr("href",settings.wizard[keys[i]]);
+									if(tmp.parent().parent().is("a"))
+										tmp.parent().parent().attr("href",settings.wizard[keys[i]]);
+								}
+								if(keys[i] == "phone")
+									tmp.contents().filter(function() {
+										return this.nodeType == 3
+									}).each(function(){
+										this.textContent = this.textContent.replace(this.textContent,"Phone: " + settings.wizard[keys[i]]);
+									});
+								if(keys[i] == "fax")
+									tmp.contents().filter(function() {
+										return this.nodeType == 3
+									}).each(function(){
+										this.textContent = this.textContent.replace(this.textContent,"Fax : " + settings.wizard[keys[i]]);
+									});
+								if(keys[i] == "email")
+									tmp.contents().filter(function() {
+										return this.nodeType == 3
+									}).each(function(){
+										this.textContent = this.textContent.replace(this.textContent,"Email: " + settings.wizard[keys[i]]);
+									});
+								if(keys[i] == "sitename")
+									tmp.html(settings.wizard[keys[i]]);
+							}
+						}
+
+					}
+
+
+				}
+				this.save();
 			}
 		},
 
@@ -168,7 +224,8 @@ angular.module('builder.projects', [])
 			if ($rootScope.savingChanges || ! project.active) {
 				return false;
 			}
-			
+			delete settings.wizard;
+
 			$rootScope.savingChanges = true;
 
 			if ( ! what) { what = 'all'; }

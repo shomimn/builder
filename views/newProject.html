@@ -62,26 +62,183 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="images-modal">
+	<div class="modal-dialog">
+		<div class="modal-content" ng-controller="MediaManagerController">
+			<div class="modal-header clearfix">
+				<button type="button" class="close pull-right" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title pull-left">{{ 'mediaManager' | translate }}</h4>
+			</div>
+			<div class="modal-body">
 
+				<div class="modal-under-header clearfix">
+					<div class="pull-left">
+						<p class="info">{{ 'uploadAndMangeImages' | translate }}</p>
+						<p class="info">{{ 'imageRestrictions' | translate }}</p>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-primary btn-lg" ng-file-select="onFileSelect($files)" data-multiple="true"><i class="icon icon-upload"></i> {{ 'uploadImages' | translate }}</button>
+					</div>
+				</div>
+
+				<ul class="nav nav-tabs" bl-media-manager-tabs>
+					<li ng-class="activeTab == 'my-images' ? 'active' : ''" ng-click="activeTab = 'my-images'"><a href="">{{ 'myImages' | translate }}</a></li>
+					<li ng-class="activeTab == 'url' ? 'active' : ''" ng-click="activeTab = 'url'"><a href="">{{ 'imageUrl' | translate }}</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div ng-class="activeTab == 'my-images' ? 'active' : ''" class="tab-pane clearfix" id="my-images">
+						<div id="images-filter-bar" class="clearfix">
+							<div class="pull-right">
+								<div class="checkbox-btn btn btn-gradient-gray" ng-class="{ active: selectAll }">
+									<input type="checkbox" ng-model="selectAll" value="true">
+								</div>
+								<div class="btn-group">
+									<button type="button" ng-class="{ active: sorting.prop == 'created_at' }" ng-click="changeSorting('created_at')" class="btn btn-gradient-gray btn-sm">{{ 'date' | translate }}</button>
+									<button type="button" ng-class="{ active: sorting.prop == 'display_name' }" ng-click="changeSorting('display_name')" class="btn btn-gradient-gray btn-sm">{{ 'aZ' | translate }}</button>
+								</div>
+								<button ng-click="deleteSelectedImages()" class="btn btn-gradient-gray btn-sm"><i class="icon icon-trash"></i> </button>
+								<input type="text" ng-model="searchQuery">
+							</div>
+						</div>
+						<div class="col-sm-2" id="folders-cont">
+							<div class="row">
+								<ul class="list-unstyled" bl-image-folder-selectable>
+
+									<li ng-repeat="folder in folders" ng-class="(selectedFolder.name == folder.name || folder.creating) ? 'active' : ''"  data-id="{{ folder.id }}" data-name="{{ folder.name }}">
+										<div ng-if="!folder.creating" class="clearfix">
+											<span class="pull-left">{{ folder.name }}</span>
+											<i ng-click="deleteFolder(folder.id);$event.stopPropagation();" ng-if="folder.id" data-toggle="tooltip" data-placement="top" title="delete folder" class="icon icon-trash delete-folder pull-right"></i>
+										</div>
+										<div ng-if="folder.creating" class="creating-folder">
+											<input ng-model="newFolder.name" type="text" name="name" class="form-control">
+											<button class="btn btn-sm btn-primary" ng-click="createFolder()"> <i class="icon icon-check"></i></button>
+											<button class="btn btn-sm btn-danger" ng-click="cancelFolderCreation()"> <i class="icon icon-cancel"></i></button>
+										</div>
+									</li>
+								</ul>
+								<div class="add-folder-cont">
+									<button class="btn btn-primary btn-block" bl-new-image-folder><i class="icon icon-folder-open"></i> {{ 'addFolder' | translate }}</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-10" id="images-cont">
+							<ul class="list-unstyled row" bl-images-selectable>
+								<li ng-class="{ selected: isSelected(image.id) }"
+									ng-repeat="image in images | filter: selectedFolder.name == 'All Images' ? '' : selectedFolder.name | filter: searchQuery | orderBy:sorting.prop:sorting.reverse"
+									class="col-sm-2"
+									data-id="{{ image.id }}">
+
+									<div class="img-wrapper" style="background-image: url({{ baseUrl }}/assets/images/uploads/{{image.file_name}})"></div>
+									<div class="img-caption">
+										<span>{{ image.display_name.substring(0,12) }}</span>
+
+										<div class="img-actions" bl-image-actions>
+											<i data-toggle="tooltip" data-placement="top" title="Edit" class="icon icon-pencil edit-image"></i>
+											<i data-toggle="tooltip" data-placement="top" title="Delete" class="icon icon-trash delete-image"></i>
+										</div>
+									</div>
+								</li>
+							</ul>
+
+							<div ng-show="images.length < 1" id="upload-container" ng-file-drop="onFileSelect($files)">
+								<img class="img-responsive" src="assets/images/filedrop.png">
+								<h2>{{ 'dropImageToUpload' | translate }}</h2>
+								<div class="separator"><span>{{ 'or' | translate }}</span></div>
+								<button class="btn btn-primary btn-lg" ng-file-select="onFileSelect($files)" data-multiple="true">{{ 'selectImageFrom' | translate }}</button>
+							</div>
+						</div>
+					</div>
+					<div ng-class="activeTab == 'url' ? 'active' : ''" class="tab-pane" id="url">
+						<h2>{{ 'enterImageWebUrl' | translate }}</h2>
+						<input type="text" ng-model="webImageUrl" class="form-control">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="downloadLocally" value="true"> {{ 'downloadLocally' | translate }}
+							</label>
+						</div>
+						<p>{{ 'mustBeDirectLink' | translate }}</p>
+						<p>{{ 'imageUrlExample' | translate }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer clearfix">
+				<p class="pull-left" ng-if="activeTab == 'my-images'">{{ 'useImageExpl' | translate }}</p>
+				<button class="btn btn-primary btn-lg" ng-click="useImage()">{{ 'useImage' | translate }}</button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="modal fade" id="project-name-modal">
-  	<div class="modal-dialog">
-    	<div class="modal-content">
-    		<div class="modal-header">
-	        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-	        	<h4 class="modal-title"><i class="fa fa-pencil"></i> {{ 'createNewProject' | translate }}</h4>
-	      	</div>
-      		<div class="modal-body">
-      			<div class="clearfix">
-      				<div class="col-sm-2"><label for="project-name">{{ 'name' | translate }}</label></div>
-      				<div class="col-sm-10"><input type="text" class="form-control" name="project-name" ng-model="name"></div>
-      			</div>
-      			<p class="text-danger error"></p>
-      		</div>
-      		<div class="modal-footer">
-                <div class="loader" ng-if="loading"><i class="fa fa-spinner fa-spin"></i></div>
-      			<button type="button" class="btn btn-danger" data-dismiss="modal">{{ 'cancel' | translate }}</button>
-      			<button type="button" class="btn btn-success" ng-click="createNewProject()">{{ 'create' | translate }}</button>
-      		</div>
-    	</div>
-  	</div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title"><i class="fa fa-pencil"></i> {{ 'createNewProject ' | translate }}</h4>
+				<h4 id="wizard_type" align="center">Basic Info</h4>
+
+			</div>
+			<div class="modal-body">
+				<p class="text-danger error"></p>
+				<div class="clearfix basicinfo" >
+					<div class="col-sm-2"><label for="project-name">{{ 'name' | translate }}</label></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-name" ng-model="name"></div>
+				</div>
+				<p></p>
+				<div class="clearfix basicinfo">
+					<div class="col-sm-2"><label for="project-title">{{ 'Title'}}</label></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-title" ng-model="settings.wizard.sitename"></div>
+				</div>
+				<p></p>
+
+				<div class="clearfix basicinfo">
+					<div class="col-sm-2"><label for="project-image">{{ 'Logo'}}</label></div>
+					<div class="col-sm-10"><button type="button" ng-click = "openMediaManager()" open-media-manager="background" class="btn btn-primary btn-block ng-binding">Media Manager</button></div>
+				</div>
+				<p></p>
+
+				<div class="clearfix accountsinfo" style="display: none">
+					<div class="col-sm-2"><label for="project-title">{{ 'Facebook'}}</label></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-title" ng-model="settings.wizard.facebook"></div>
+				</div>
+				<p></p>
+
+				<div class="clearfix accountsinfo" style="display: none">
+					<div class="col-sm-2"><label for="project-title">{{ 'Twitter'}}</label></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-title" ng-model="settings.wizard.twitter"></div>
+				</div>
+				<p></p>
+
+				<div class="clearfix accountsinfo" style="display: none">
+					<div class="col-sm-2"><label for="project-title">{{ 'Google+'}}</label></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-title" ng-model="settings.wizard.googleplus"></div>
+				</div>
+				<p></p>
+
+				<div class="clearfix contactinfo" style="display: none">
+					<div class="col-sm-2"><label for="project-title">{{ 'Phone'}}</label></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-title" ng-model="settings.wizard.phone"></div>
+				</div>
+				<p></p>
+
+				<div class="clearfix contactinfo" style="display: none">
+					<div class="col-sm-2"><label for="project-title">{{ 'Fax'}}</label></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-title" ng-model="settings.wizard.fax"></div>
+				</div>
+				<p></p>
+
+				<div class="clearfix contactinfo" style="display: none">
+					<div class="col-sm-2"><label for="project-title">{{ 'Email'}}</label></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-title" ng-model="settings.wizard.email"></div>
+				</div>
+
+				<!--<p class="text-danger error"></p>-->
+			</div>
+			<div class="modal-footer">
+				<div class="loader" ng-if="loading"><i class="fa fa-spinner fa-spin"></i></div>
+				<button type="button" class="btn btn-danger"  data-dismiss="modal" ng-click="cancelNewProject()">{{ 'cancel' | translate }}</button>
+				<button id="wizard_button" type="button" class="btn btn-success" ng-click="createNewProject()">{{ 'Next' | translate }}</button>
+			</div>
+		</div>
+	</div>
 </div>
