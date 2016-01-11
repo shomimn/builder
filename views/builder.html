@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div>
                     <ul class="nav navbar-nav main_navbar">
-                        <li class="active"><a ui-sref="dashboard" bl-tooltip="dashboard"><i class="icon icon-left-open"></i></a></li>
+                        <li><a ui-sref="dashboard" bl-tooltip="dashboard"><i class="icon icon-left-open"></i></a></li>
                         <li><a href="" id="nav_pages" data-name="pages" slide-toggle="#nav-pages"><i class="icon icon-docs"></i><span>{{:: 'pages' | translate }}</span></a></li>
                         <li><a href="" data-name="elements" slide-toggle="#nav-elements"><i class="icon icon-puzzle-outline"></i><span>{{:: 'elements' | translate }}</span></a></li>
                         <li><a href="" data-name="design"   slide-toggle=".nav-themes"><i class="icon icon-brush-1"></i>Design</a></li>
@@ -27,58 +27,59 @@
             </div>
         </nav>
         <div id="elements-container" ng-controller="NavbarController">
-            <div id="nav-pages" class="slideable pagesToggle" ng-class="{ open: panels.active === 'pages' }" data-name="pages" bl-pretty-scrollbar>
-                <nav class="navbar navbar-default" style="margin-bottom: 5px">
-                    <div class="container-fluid">
-                        <div>
-                            <ul class="nav navbar-nav main_navbar">
-                                <li class="active"><a href="" ng-click="createNewPage()" bl-tooltip="newPage"><i class="icon icon-doc-add"></i></a></li>
-                                <li ng-repeat="page in project.active.pages track by $index" ng-click="project.changePage(page.name)" ng-class="{active: page.name == project.activePage.name}">
-                                    <a href=""><span class="name">{{ page.name }}</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+
+            <div id="nav-pages" class="slideable pagesToggle" ng-class="{ open: panels.active === 'pages' }" data-name="pages">
+                <div class="pages_nav">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="page in project.active.pages track by $index"
+                            ng-click="project.changePage(page.name)"
+                            ng-class="{active: page.name == project.activePage.name}">
+                            <span class="name">{{ page.name }}</span>
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="container-fluid pageNavOptions">
                     <div class="row">
-                        <div class="col-md-2 text-right pages_nav_text">
+                        <div class="col-md-2 pages_nav_text">
                             <span>Page properties:</span>
                         </div>
                         <div class="col-md-2">
-                            <input placeholder="page name" type="text" ng-disabled="project.activePage.name == 'Index'" class="form-control" ng-model="project.activePage.name" id="page-name">
+                            <input placeholder="page name" type="text" ng-disabled="project.activePage.name == 'Index'" class="form-control dark_input" ng-model="project.activePage.name" id="page-name">
                         </div>
                         <div class="col-md-2">
-                            <input placeholder="page title" type="text" class="form-control" ng-model="project.activePage.title" id="page-title">
+                            <input placeholder="page title" type="text" class="form-control dark_input" ng-model="project.activePage.title" id="page-title">
                         </div>
-                        <div class="col-md-3 col-md-offset-3">
-                            <button class="btn btn-default rounded_borders" ng-click="savePage()" ><i class="icon icon-floppy-1"></i></button>
-                            <button class="btn btn-default rounded_borders" ng-click="deletePage()" ng-disabled="project.activePage.name.toLowerCase() === 'index'"><i class="icon icon-trash"></i></button>
-                            <button class="btn btn-default rounded_borders" ng-click="openPanel('export')" ><i class="icon icon-export"></i>Export</button>
-                            <button class="btn btn-default rounded_borders" ng-click="copyPage()" ><i class="icon icon-docs-1"></i></button>
+                        <div class="col-md-4 col-md-offset-2 action-buttons">
+                            <button ng-click="createNewPage()"><i class="icon icon-doc-add"></i>New</button>
+                            <button ng-click="savePage()" ><i class="icon icon-floppy-1"></i>Save</button>
+                            <button ng-click="deletePage()" ng-disabled="project.activePage.name.toLowerCase() === 'index'"><i class="icon icon-trash"></i>Delete</button>
+                            <button ng-click="copyPage()" ><i class="icon icon-docs-1"></i>Copy</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="nav-elements" class="panel slideable elementsToggle open" data-name="elements" bl-panels-accordion>
+            <!--<div id="nav-elements" class="panel slideable elementsToggle open" data-name="elements" bl-panels-accordion>-->
+                <!--<div id="elements-list">-->
+                    <!--<ul id="elements" class="list-unstyled elementsNavStyle"></ul>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div id="nav-elements" class="panel slideable elementsToggle open" data-name="elements" bl-panels-accordion bl-pretty-scrollbar>
                 <div id="elements-list">
                     <ul id="elements" class="list-unstyled elementsNavStyle"></ul>
                 </div>
             </div>
 
-            <div id="themes" ng-class="{ open: panels.active === 'themes' }" class="slideable nav-themes designToggle" data-name="themes" ng-controller="ThemesController" bl-render-themes bl-pretty-scrollbar>
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div>
-                            <ul class="nav navbar-nav main_navbar">
-                                <li><a data-toggle="modal" data-target="#myModalThemes">Themes</a></li>
-                                <li><a ng-click="openPanel('templates')">Templates</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+            <div id="themes" ng-class="{ open: panels.active === 'themes' }" class="slideable nav-themes designToggle" data-name="themes">
+                <div id="themes_nav" class="pages_nav">
+                    <ul class="list-unstyled">
+                        <li data-toggle="modal" data-target="#myModalThemes" class="themes_margin">Themes</li>
+                        <li ng-click="openPanel('templates')" class="themes_margin">Templates</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </section>
