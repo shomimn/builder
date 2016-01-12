@@ -16,12 +16,12 @@
                         <li><a href="" data-name="design"   slide-toggle=".nav-themes"><i class="icon icon-brush-1"></i>Design</a></li>
                         <li><a href="" data-toggle="modal" data-target="#myModalSettings"><i class="icon icon-cog-outline"></i><span>{{:: 'settings' | translate }}</span></a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right bottom-navigation pointerCursor" ng-controller="NavbarController">
-                        <li><a bl-tooltip="save" placement="bottom" ng-click="project.save()" ng-disabled="savingChanges">
+                    <ul class="nav navbar-nav navbar-right bottom-navigation pointerCursor main_navbar" ng-controller="NavbarController">
+                        <li><a ng-click="project.save()" ng-disabled="savingChanges">
                             <i class="icon" ng-class="savingChanges ? 'icon-spin6 icon-spin' : 'icon-floppy-1'"></i>Save</a></li>
-                        <li><a ng-click="preview()" bl-tooltip="preview" placement="bottom"><i class="icon icon-eye"></i>Preview</a></li>
-                        <li><a ng-click="openPanel('export')" bl-tooltip="export" placement="bottom"><i class="icon icon-export"></i>Export</a></li>
-                        <li><a data-toggle="modal" data-target="#publish-modal" bl-tooltip="publish" placement="bottom"><i class="icon icon-publish"></i>Publish</a></li>
+                        <li><a ng-click="preview()" ><i class="icon icon-eye"></i>Preview</a></li>
+                        <li><a ng-click="openPanel('export')" ><i class="icon icon-export"></i>Export</a></li>
+                        <li><a data-toggle="modal" data-target="#publish-modal" ><i class="icon icon-publish"></i>Publish</a></li>
                     </ul>
                 </div>
             </div>
