@@ -1,9 +1,10 @@
 angular.module('builder')
 
-.controller('NewProjectController', ['$scope', '$http', '$state', 'templates', '$upload', function($scope, $http, $state, templates, $upload) {
+.controller('NewProjectController', ['$scope', '$http', '$state', 'templates', '$upload','settings', function($scope, $http, $state, templates, $upload, settings) {
 
 	$scope.templates = templates;
-
+	$scope.settings = settings;
+	$scope.settings.wizard = settings.wizard;
 	$scope.filters = { category: '', color: '' };
 
 	//modal cache
@@ -22,8 +23,37 @@ angular.module('builder')
 		$scope.selectedTemplate = template;
 		$scope.modal.modal('show');
 	};
-
+	$scope.openMediaManager = function ()
+	{
+		$scope.modal.modal('hide');
+	};
+	$scope.useImage = function()
+	{
+		$scope.modal.modal('show');
+	};
+	$scope.cancelNewProject = function ()
+	{
+		$("#wizard_type").html("Basic Info");
+		$('.basicinfo').css('display','inline');
+		$('.accountsinfo').css('display','none');
+		$('.contactinfo').css('display','none');
+		$('#wizard_button').html("Next");
+	};
 	$scope.createNewProject = function() {
+		if($("#wizard_type").html() == "Basic Info")
+		{
+			$("#wizard_type").html("Social Media Accounts");
+			$('.basicinfo').css('display','none');
+			$('.accountsinfo').css('display','inline');
+		}
+		else if($("#wizard_type").html() == "Social Media Accounts")
+		{
+			$("#wizard_type").html("Contact Info");
+			$('.accountsinfo').css('display','none');
+			$('.contactinfo').css('display','inline');
+			$('#wizard_button').html("Finish");
+		}
+		else {
 		var payload = { name: $scope.name };
 
         $scope.loading = true;
@@ -48,6 +78,7 @@ angular.module('builder')
 		}).finally(function() {
 		    $scope.loading = false;
 		})
+		}
 	};
 
 	$scope.back = function()
