@@ -12227,10 +12227,14 @@ img.ui-draggable-dragging {
 	padding: 14px 16px;
 	text-decoration: none;
 }
-.pages_nav ul li:hover
+.pages_nav ul li:hover, .pages_nav ul li.active
 {
 	background-color: #414141;
 }
+/*.pages_nav ul li.active*/
+/*{*/
+	/*background-color: #414141;*/
+/*}*/
 .pages_nav .name
 {
 	color: #BDBDBD;
