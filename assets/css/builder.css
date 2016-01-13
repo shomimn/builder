@@ -11642,7 +11642,7 @@ div.inline
 }
 .navbar {
 	font-size:14px;
-	background-color:#393939;
+	background-color:#222;
 	border:none;
 	z-index:20;
 	max-height:53px;
@@ -12157,6 +12157,15 @@ img.ui-draggable-dragging {
     white-space: nowrap;
     font-size: 0;
     overflow: auto;
+}
+.main_nav_builder
+{
+	font-size:14px;
+	background-color:#393939;
+	border:none;
+	z-index:20;
+	max-height:53px;
+	color:#BDBDBD
 }
 /*.main_navbar_border*/
 /*{*/
