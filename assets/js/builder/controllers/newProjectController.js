@@ -1,21 +1,22 @@
 angular.module('builder')
 
-.controller('NewProjectController', ['$scope', '$http', '$state', 'templates', '$upload','settings', function($scope, $http, $state, templates, $upload, settings) {
+.controller('NewProjectController', ['$scope', '$http', '$state', 'templates', '$upload','settings','$rootScope', function($scope, $http, $state, templates, $upload, settings, $rootScope) {
 
 	$scope.templates = templates;
 	$scope.settings = settings;
 	$scope.settings.wizard = settings.wizard;
 	$scope.filters = { category: '', color: '' };
-
+	var map;
+	var marker;
 	//modal cache
 	$scope.modal = $('#project-name-modal');
 	$scope.error = $scope.modal.find('.error');
 
 	//clear input and errors when modal is closed
 	$scope.modal.off('hidde.bs.modal').on('hidde.bs.modal', function (e) {
-		$scope.error.html('');	
+		$scope.error.html('');
 		$scope.$apply(function() { $scope.name = ''; });
-	});	
+	});
 
 	$scope.templates.getAll();
 
@@ -23,6 +24,31 @@ angular.module('builder')
 		$scope.selectedTemplate = template;
 		$scope.modal.modal('show');
 	};
+	function initMap()
+	{
+		var lat = 0.0;
+		var lng = 0.0;
+		var zoom = 8;
+		//var latLng = {lat: lat, lng: lng};
+		if($("#map").html() === ""){
+			map = new google.maps.Map($("#map")[0], {
+				center: new google.maps.LatLng(lat, lng),
+				zoom: zoom,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			marker = new google.maps.Marker({
+				position: new google.maps.LatLng(lat, lng),
+				map: map
+			});
+			google.maps.event.addListener(map, 'center_changed', function () {
+				marker.setPosition(map.center);
+			});
+		}
+	}
+
+	//$('#map').on('shown', function () {
+	//
+	//});
 	$scope.openMediaManager = function ()
 	{
 		$scope.modal.modal('hide');
@@ -37,48 +63,67 @@ angular.module('builder')
 		$('.basicinfo').css('display','inline');
 		$('.accountsinfo').css('display','none');
 		$('.contactinfo').css('display','none');
+		$('.text-danger').html("");
+		//$('.mapinfo').empty();
+		$('.mapinfo').css('display','none');
 		$('#wizard_button').html("Next");
 	};
 	$scope.createNewProject = function() {
-		if($("#wizard_type").html() == "Basic Info")
+		switch ($("#wizard_type").html())
 		{
-			$("#wizard_type").html("Social Media Accounts");
-			$('.basicinfo').css('display','none');
-			$('.accountsinfo').css('display','inline');
-		}
-		else if($("#wizard_type").html() == "Social Media Accounts")
-		{
-			$("#wizard_type").html("Contact Info");
-			$('.accountsinfo').css('display','none');
-			$('.contactinfo').css('display','inline');
-			$('#wizard_button').html("Finish");
-		}
-		else {
-		var payload = { name: $scope.name };
+			case "Basic Info":
+				$("#wizard_type").html("Social Media Accounts");
+				$('.basicinfo').css('display','none');
+				$('.accountsinfo').css('display','inline');
+				break;
+			case "Social Media Accounts":
+				$("#wizard_type").html("Contact Info");
+				$('.accountsinfo').css('display','none');
+				$('.contactinfo').css('display','inline');
+				break;
+			case "Contact Info":
 
-        $scope.loading = true;
-		
-		if ($scope.selectedTemplate) {
-			payload.template = $scope.selectedTemplate.id;
+
+				$("#wizard_type").html("Location Info");
+				$('.contactinfo').css('display','none');
+				$('.mapinfo').css('display','inline-block');
+
+				$('#wizard_button').html("Finish");
+				if(map == undefined)
+					initMap();
+				google.maps.event.trigger(map, 'resize');
+				break;
+			default:
+				var payload = { name: $scope.name };
+				$rootScope.map.lat = marker.getPosition().lat();
+				$rootScope.map.lng = marker.getPosition().lng();
+				$rootScope.map.zoom = map.zoom;
+				$scope.loading = true;
+
+				if ($scope.selectedTemplate) {
+					payload.template = $scope.selectedTemplate.id;
+				}
+
+				$http.post('projects', payload).success(function() {
+					var name = $scope.name;
+
+					$scope.error.html('');
+					$scope.name = '';
+					$scope.selectedTemplate = false;
+
+					$scope.modal.modal('hide').off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+						$state.go('builder', {name: name});
+					});
+
+				}).error(function(data) {
+					$scope.error.html(data);
+				}).finally(function() {
+					$scope.loading = false;
+				});
+
+				break;
 		}
 
-		$http.post('projects', payload).success(function() {
-			var name = $scope.name;
-
-			$scope.error.html('');
-			$scope.name = '';
-			$scope.selectedTemplate = false;
-			
-			$scope.modal.modal('hide').off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
-				$state.go('builder', {name: name});
-			});	
-
-		}).error(function(data) {
-			$scope.error.html(data);
-		}).finally(function() {
-		    $scope.loading = false;
-		})
-		}
 	};
 
 	$scope.back = function()
