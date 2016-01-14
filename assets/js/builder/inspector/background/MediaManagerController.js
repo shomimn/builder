@@ -1,6 +1,6 @@
 angular.module('builder.inspector')
 
-.controller('MediaManagerController', ['$scope', '$upload', '$http', 'inspector', function($scope, $upload, $http, inspector) {
+.controller('MediaManagerController', ['$scope', '$upload', '$http', 'inspector','settings', function($scope, $upload, $http, inspector, settings) {
 
 		$scope.modal = $('#images-modal');
 
@@ -42,13 +42,42 @@ angular.module('builder.inspector')
 		$scope.useImage = function() {
 			if ($('#images-modal').data('type') == 'background') {
 				$scope.setAsBackground();
-			} else {
+			}
+			else if($('#images-modal').data('type') == 'logo')
+			{
+				$scope.setAsLogo();
+				$("#project-name-modal").modal('show');
+			}
+			else{
+
 				$scope.setAsSource();
 			}
 
 			$scope.modal.modal('hide');
-		};
 
+		};
+		$scope.setAsLogo = function (){
+			settings.wizard = {};
+			if ($scope.activeTab == 'my-images') {
+				for (var i = $scope.images.length - 1; i >= 0; i--) {
+					if ($scope.images[i].id == $scope.selectedImages[0]) {
+						var path = $scope.baseUrl+'/assets/images/uploads/'+$scope.images[i]['file_name'];
+					}
+				};
+			} else {
+				if ($scope.downloadLocally) {
+					$http.post('images/', { url: $scope.webImageUrl }).success(function(data) {
+						settings.wizard.logo = data;
+					});
+				} else {
+					var path = $scope.webImageUrl;
+				}
+			}
+
+			if (path) {
+				settings.wizard.logo = path;
+			}
+		};
 		$scope.setAsSource = function() {
 			var w = $scope.selected.node.width;
 			var h = $scope.selected.node.height;

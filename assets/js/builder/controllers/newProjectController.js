@@ -53,10 +53,7 @@ angular.module('builder')
 	{
 		$scope.modal.modal('hide');
 	};
-	$scope.useImage = function()
-	{
-		$scope.modal.modal('show');
-	};
+
 	$scope.cancelNewProject = function ()
 	{
 		$("#wizard_type").html("Basic Info");

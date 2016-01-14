@@ -11,7 +11,8 @@ angular.module('builder.projects', [])
 		googleplus: [".fa-google-plus",".icon-google-plus"],
 		phone: [".wizard-phone"],
 		fax: [".wizard-fax"],
-		email: [".wizard-email"]
+		email: [".wizard-email"],
+		logo: [".logo-wrapper"]
 	};
 	var project = {
 
@@ -181,6 +182,9 @@ angular.module('builder.projects', [])
 									});
 								if(keys[i] == "sitename")
 									tmp.html(settings.wizard[keys[i]]);
+								if(keys[i] == "logo"){
+									tmp.find("img").attr("src",settings.wizard[keys[i]]);
+								}
 							}
 						}
 
