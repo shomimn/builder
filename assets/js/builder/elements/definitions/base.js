@@ -108,7 +108,7 @@ baseBuilderElements.push({
 	name: 'google map',
 	frameworks: ['base'],
 	nodes: ['iframe'],
-	html: '<div style="width:400px; height:400px"><iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="elements/map.html?lat={{$root.map.lat}}&lng={{$root.map.lng}}&zoom={{$root.map.zoom}}"></iframe></div>',
+	html: '<div style="width:400px; height:400px"><iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="map.html?lat={{$root.map.lat}}&lng={{$root.map.lng}}&zoom={{$root.map.zoom}}"></iframe></div>',
 	//html: '<div google-map lat="0" lng="0"></div>',
 	types: ['flow'],
 	validChildren: ['flow'],
@@ -117,7 +117,7 @@ baseBuilderElements.push({
 	scaleDragPreview: false,
 	icon: 'google',
 	onEdit: function ($scope) {
-		$($scope.selected.node).attr('src', "elements/map.html?lat=43.3&lng=21.9");
+		$($scope.selected.node).attr('src', "map.html?lat=43.3&lng=21.9");
 	}
 });
 
@@ -221,7 +221,7 @@ baseBuilderElements.push({
 				left = leftEdge.left + 30;
 			}
 
-			$scope.latLngEditor.apply = function() { $(iframe).attr("src", "elements/map.html?lat=" + $scope.map.lat + "&lng=" + $scope.map.lng + "&zoom=" + $scope.map.zoom); };
+			$scope.latLngEditor.apply = function() { $(iframe).attr("src", "map.html?lat=" + $scope.map.lat + "&lng=" + $scope.map.lng + "&zoom=" + $scope.map.zoom); };
 
 			$scope.latLngEditor.css({ top: top, left: left});
 		}
