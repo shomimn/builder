@@ -100,15 +100,12 @@ angular.module('builder')
 		switch ($("#progressindicator>li.active").attr("id"))
 		{
 			case "basicinfo":
-				$("#basicinfo").addClass("completed");
 				$('#accountsinfo').click();
 				break;
 			case "accountsinfo":
-				$("#accountsinfo").addClass("completed");
 				$('#contactinfo').click();
 				break;
 			case "contactinfo":
-				$("#contactinfo").addClass("completed");
 				$('#mapinfo').click();
 				break;
 			default:
