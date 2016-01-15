@@ -15,13 +15,16 @@ angular.module('builder')
 	//clear input and errors when modal is closed
 	$scope.modal.off('hidde.bs.modal').on('hidde.bs.modal', function (e) {
 		$scope.error.html('');
-		$scope.$apply(function() { $scope.name = ''; });
+		$scope.$apply(function() { $scope.settings.wizard.name = ''; });
 	});
 
 	$scope.templates.getAll();
 
 	$scope.showNameModal = function(template) {
 		$scope.selectedTemplate = template;
+		if($scope.settings.wizard != undefined){
+
+		}
 		$scope.modal.modal('show');
 	};
 	function initMap()
@@ -51,7 +54,34 @@ angular.module('builder')
 	//});
 	$scope.openMediaManager = function ()
 	{
-		$scope.modal.modal('hide');
+		//$scope.modal.modal('hide');
+		if($scope.settings.wizard== undefined)
+		{
+			$scope.error.html("A name is required for a project.");
+		}
+		else {
+			$scope.modal.modal('hide')
+				.on('hidden.bs.modal', function (e){
+					$('#images-modal').data('type',"logo");
+
+					$('#images-modal').modal('show')
+						.on('show.bs.modal', function(e){
+
+						})
+						.on('hidden.bs.modal', function (e){
+
+							$scope.modal.modal('show');
+
+
+						})
+					;
+					$(this).off('hidden.bs.modal');
+				});
+
+		}
+
+
+
 	};
 
 	$scope.cancelNewProject = function ()
@@ -61,37 +91,31 @@ angular.module('builder')
 		$('.accountsinfo').css('display','none');
 		$('.contactinfo').css('display','none');
 		$('.text-danger').html("");
-		//$('.mapinfo').empty();
 		$('.mapinfo').css('display','none');
 		$('#wizard_button').html("Next");
+		$("#progressindicator>li.active").removeClass("active");
+		$("#basicinfo").addClass("active");
 	};
 	$scope.createNewProject = function() {
-		switch ($("#wizard_type").html())
+		switch ($("#progressindicator>li.active").attr("id"))
 		{
-			case "Basic Info":
-				$("#wizard_type").html("Social Media Accounts");
-				$('.basicinfo').css('display','none');
-				$('.accountsinfo').css('display','inline');
+			case "basicinfo":
+				$("#basicinfo").addClass("completed");
+				$('#accountsinfo').click();
 				break;
-			case "Social Media Accounts":
-				$("#wizard_type").html("Contact Info");
-				$('.accountsinfo').css('display','none');
-				$('.contactinfo').css('display','inline');
+			case "accountsinfo":
+				$("#accountsinfo").addClass("completed");
+				$('#contactinfo').click();
 				break;
-			case "Contact Info":
-
-
-				$("#wizard_type").html("Location Info");
-				$('.contactinfo').css('display','none');
-				$('.mapinfo').css('display','inline-block');
-
-				$('#wizard_button').html("Finish");
-				if(map == undefined)
-					initMap();
-				google.maps.event.trigger(map, 'resize');
+			case "contactinfo":
+				$("#contactinfo").addClass("completed");
+				$('#mapinfo').click();
 				break;
 			default:
-				var payload = { name: $scope.name };
+				if($scope.settings.wizard != undefined)
+					var payload = { name: $scope.settings.wizard.name };
+				else
+				 var payload = { name: undefined};
 				$rootScope.map.lat = marker.getPosition().lat();
 				$rootScope.map.lng = marker.getPosition().lng();
 				$rootScope.map.zoom = map.zoom;
@@ -102,10 +126,13 @@ angular.module('builder')
 				}
 
 				$http.post('projects', payload).success(function() {
-					var name = $scope.name;
+					if($scope.settings.wizard != undefined)
+						var name = { name: $scope.settings.wizard.name };
+					else
+						var name = { name: undefined};
 
 					$scope.error.html('');
-					$scope.name = '';
+					$scope.settings.wizard.name = '';
 					$scope.selectedTemplate = false;
 
 					$scope.modal.modal('hide').off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
@@ -122,7 +149,28 @@ angular.module('builder')
 		}
 
 	};
+	$("#progressindicator li").click(function(){
+		$("#project_wizard").find("." + $("#progressindicator>li.active").attr("id")).hide();
+		$("#progressindicator>li.active").removeClass("active");
+		$(this).addClass("active");
+		$("#project_wizard").find("." + $("#progressindicator>li.active").attr("id")).show();
+		if($(this).attr("id") == "mapinfo" )
+		{
+			$('#wizard_button').html("Finish");
+			if(map == undefined) {
+				$('.mapinfo').css('display', 'inline-block');
 
+
+				//if(map == undefined)
+				initMap();
+				google.maps.event.trigger(map, 'resize');
+			}
+		}
+		else $('#wizard_button').html("Next");
+	});
+	function changeWizard(){
+
+	}
 	$scope.back = function()
 	{
 		$state.go("home");

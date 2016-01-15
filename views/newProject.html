@@ -175,14 +175,21 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
 				<h4 class="modal-title"><i class="fa fa-pencil"></i> {{ 'createNewProject ' | translate }}</h4>
-				<h4 id="wizard_type" align="center">Basic Info</h4>
+				<p></p>
+				<ul id = "progressindicator"class="progress-indicator">
+					<li id="basicinfo" class="active"> <span class="bubble"></span> Basic Info </li>
+					<li id="accountsinfo"> <span class="bubble"></span> Accounts Info </li>
+					<li id="contactinfo"> <span class="bubble"></span> Contact Info </li>
+					<li id="mapinfo"> <span class="bubble"></span> Location Info </li>
+				</ul>
+
 
 			</div>
-			<div class="modal-body" >
+			<div class="modal-body" id="project_wizard">
 				<p class="text-danger error"></p>
 				<div class="clearfix basicinfo" >
 					<div class="col-sm-2"><label for="project-name">{{ 'name' | translate }}</label></div>
-					<div class="col-sm-10"><input type="text" class="form-control" name="project-name" ng-model="name"></div>
+					<div class="col-sm-10"><input type="text" class="form-control" name="project-name" ng-model="settings.wizard.name"></div>
 				</div>
 				<p></p>
 				<div class="clearfix basicinfo">
@@ -193,7 +200,7 @@
 
 				<div class="clearfix basicinfo">
 					<div class="col-sm-2"><label for="project-image">{{ 'Logo'}}</label></div>
-					<div class="col-sm-10"><button type="button" ng-click = "openMediaManager()" open-media-manager="logo" class="btn btn-primary btn-block ng-binding">Media Manager</button></div>
+					<div class="col-sm-10"><button type="button" ng-click = "openMediaManager()"  class="btn btn-primary btn-block ng-binding">Media Manager</button></div>
 				</div>
 				<p></p>
 

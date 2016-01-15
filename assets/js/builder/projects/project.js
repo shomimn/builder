@@ -143,7 +143,7 @@ angular.module('builder.projects', [])
 				$rootScope.$broadcast('builder.page.changed', page);
 				if(settings.wizard !== undefined){
 					var keys = Object.keys(settings.wizard);
-
+					keys.splice(keys.indexOf("name"),1);
 					for(var i = 0; i < keys.length; i++){
 
 

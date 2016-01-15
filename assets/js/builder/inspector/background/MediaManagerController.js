@@ -46,7 +46,7 @@ angular.module('builder.inspector')
 			else if($('#images-modal').data('type') == 'logo')
 			{
 				$scope.setAsLogo();
-				$("#project-name-modal").modal('show');
+
 			}
 			else{
 
@@ -57,7 +57,7 @@ angular.module('builder.inspector')
 
 		};
 		$scope.setAsLogo = function (){
-			settings.wizard = {};
+			//settings.wizard = {};
 			if ($scope.activeTab == 'my-images') {
 				for (var i = $scope.images.length - 1; i >= 0; i--) {
 					if ($scope.images[i].id == $scope.selectedImages[0]) {
