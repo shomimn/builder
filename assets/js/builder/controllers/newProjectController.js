@@ -111,8 +111,7 @@ angular.module('builder')
 			default:
 				if($scope.settings.wizard != undefined)
 					var payload = { name: $scope.settings.wizard.name };
-				else
-				 var payload = { name: undefined};
+
 				$rootScope.map.lat = marker.getPosition().lat();
 				$rootScope.map.lng = marker.getPosition().lng();
 				$rootScope.map.zoom = map.zoom;
@@ -123,10 +122,10 @@ angular.module('builder')
 				}
 
 				$http.post('projects', payload).success(function() {
+					var name;
 					if($scope.settings.wizard != undefined)
-						var name = { name: $scope.settings.wizard.name };
-					else
-						var name = { name: undefined};
+						 name =  $scope.settings.wizard.name ;
+
 
 					$scope.error.html('');
 					$scope.settings.wizard.name = '';
