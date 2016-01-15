@@ -54,7 +54,11 @@ angular.module('builder.inspector')
 							var innerDoc = frame.contentDocument || frame.contentWindow.document;
 							var element = innerDoc.getElementById(href.substring(1));
 							if (element)
+							{
+								$('#navBar').addClass('navbar-fixed-top');
 								element.scrollIntoView();
+								$('#navBar').removeClass('navbar-fixed-top');
+							}
 						}
 					}
 				});
